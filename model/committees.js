@@ -4,7 +4,7 @@ const validator = require("validator");
 const crypto = require("crypto");
 
 const committeesSchema = new mongoose.Schema({
-    committeName: {
+    title: {
         type: String,
         trim: true,
         required: [true, `committe name is required`],
@@ -18,4 +18,4 @@ const committeesSchema = new mongoose.Schema({
 
 const Committees = mongoose.model("Committees", committeesSchema);
 
-module.exports = Committes;
+module.exports = Committees;
