@@ -1,0 +1,22 @@
+.login{
+    &_container {
+        border-radius: 1rem;
+        padding: 3rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 30rem;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+    &_title {
+        text-align: center;
+        padding: 0rem 0 2rem;
+        font-size: 2rem;
+    }
+
+    &_btn_container {
+        margin-top: 2rem;
+        padding-bottom: 2rem;
+    }
+}

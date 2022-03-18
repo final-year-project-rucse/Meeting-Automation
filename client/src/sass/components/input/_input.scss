@@ -1,0 +1,24 @@
+.input_container {
+    label {
+
+    }
+    input {
+        border: none;
+        outline: none;
+        border: .2px solid var(--color-Grey-light-4);
+        padding: .4rem .6rem;
+        width: 100%;
+        // margin: .5rem 0;
+        margin-bottom: 1.5rem;
+        border-radius: .5rem;
+    
+        &::placeholder {
+            font-family: var(--primary-font);
+        }
+    }
+
+    &_label {
+        margin-bottom: 10px;
+    }
+    
+}
