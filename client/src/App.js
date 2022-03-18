@@ -1,24 +1,16 @@
-import logo from "./logo.svg";
-import "./App.css";
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import "./sass/main.scss";
-
+import Home from "./components/pages/Home/Home"
 function App() {
   return (
-    <div className="App">
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-primary">
-          Left
-        </button>
-        <button type="button" class="btn btn-primary">
-          Middle
-        </button>
-        <button type="button" class="btn btn-primary">
-          Right
-        </button>
-      </div>
-      <div className="check">
-            jfhgfhfhgf
-      </div>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Home/>}></Route>
+          {/* <Route exact path="/register" element={<Register />}></Route>
+          <Route exact path="/dashboard" element={<Dashboard/>}></Route> */}
+          </Routes>
+			</BrowserRouter>
     </div>
   );
 }
