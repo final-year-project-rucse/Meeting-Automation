@@ -1,0 +1,16 @@
+.btn {
+    &_global {
+        width: 100%;
+        border: none;
+        padding: .5rem 0;
+        text-align: center;
+        border-radius: 3rem;
+        background-color: var(--color-primary);
+        font-family: var(--primary-font);
+        color: var(--color-white);
+        text-transform: uppercase;
+        &:hover {
+
+        }
+    }
+}
