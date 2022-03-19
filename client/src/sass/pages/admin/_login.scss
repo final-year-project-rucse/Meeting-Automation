@@ -1,22 +1,62 @@
-.login{
-    &_container {
-        border-radius: 1rem;
-        padding: 3rem;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 30rem;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    }
-    &_title {
-        text-align: center;
-        padding: 0rem 0 2rem;
-        font-size: 2rem;
-    }
+.login {
+  &_container {
+    border-radius: 1rem;
+    padding: 3rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: var(--color-white);
+  }
+  &_title {
+    font-family: "Lobster", sans-serif;
+    text-align: center;
+    padding: 0rem 0 2rem;
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--color-Grey-dark-1);
+  }
+  &_forgot_password:link,
+  &_forgot_password:visited {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
 
-    &_btn_container {
-        margin-top: 2rem;
-        padding-bottom: 2rem;
-    }
+  &_forgot_password:hover {
+    color: darken($color-primary, 15%);
+  }
+
+  &_btn_container {
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+.check {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../../../assets/img/login.jpg);
+  position: relative;
+  background-size: cover;
+  background-position: bottom;
+  width: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+}
+
+.check::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-image: linear-gradient(
+    to top right,
+    rgba(251, 9, 48, 0.4),
+    rgba(0, 128, 0, 0.4)
+  );
+  background-color: rgba(0, 0, 0, 0.6);
 }

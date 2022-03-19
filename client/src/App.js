@@ -1,5 +1,5 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./sass/main.scss";
 
 import Home from "./pages/Home/Home"
@@ -18,8 +18,8 @@ function App() {
           <Route exact path="/addcommittee" element={<AddCommittee/>}></Route>
           {/* <Route exact path="/register" element={<Register />}></Route>
           <Route exact path="/dashboard" element={<Dashboard/>}></Route> */}
-          </Routes>
-			</BrowserRouter>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

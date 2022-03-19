@@ -1,16 +1,22 @@
 .btn {
-    &_global {
-        width: 100%;
-        border: none;
-        padding: .5rem 0;
-        text-align: center;
-        border-radius: 3rem;
-        background-color: var(--color-primary);
-        font-family: var(--primary-font);
-        color: var(--color-white);
-        text-transform: uppercase;
-        &:hover {
-
-        }
+  &_global {
+    width: 100%;
+    border: none;
+    padding: 0.8rem 0;
+    text-align: center;
+    border-radius: 3rem;
+    background-color: var(--color-primary);
+    font-family: var(--primary-font);
+    color: var(--color-white);
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: all 0.2s ease-out;
+    &:hover {
+      transform: translateY(-0.2rem);
+      background-color: darken($color-primary, 15%);
     }
+    &:active {
+      transform: translateY(-1px);
+    }
+  }
 }
