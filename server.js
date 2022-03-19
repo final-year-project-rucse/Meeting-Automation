@@ -10,7 +10,7 @@ process.on("uncaughtException", (err) => {
 const app = require("./app");
 
 //Connect Database
-const DB = process.env.MONGODB_LOCAL_URL;
+const DB = process.env.MONGODB_CLOUD_URL;
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
