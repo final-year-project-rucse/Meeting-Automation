@@ -1,24 +1,26 @@
 .input_container {
-    label {
+  label {
+  }
+  input {
+    border: none;
+    outline: none;
+    border: 0.6px solid var(--color-Grey-light-4);
+    padding: 0.5rem 0.6rem;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease-out;
 
+    &::placeholder {
+      font-family: var(--primary-font);
     }
-    input {
-        border: none;
-        outline: none;
-        border: .2px solid var(--color-Grey-light-4);
-        padding: .4rem .6rem;
-        width: 100%;
-        // margin: .5rem 0;
-        margin-bottom: 1.5rem;
-        border-radius: .5rem;
-    
-        &::placeholder {
-            font-family: var(--primary-font);
-        }
+    &:focus {
+      border: 0.6px solid var(--color-Grey-dark-2);
     }
+  }
 
-    &_label {
-        margin-bottom: 10px;
-    }
-    
+  &_label {
+    margin-bottom: 10px;
+    line-height: 0;
+  }
 }

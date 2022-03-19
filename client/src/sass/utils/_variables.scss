@@ -1,20 +1,20 @@
 :root {
+  --color-primary: rgba(115, 178, 250, 1);
 
-    --color-primary: rgba(115, 178, 250, 1);
+  --color-Grey-light-1: #faf9f9;
+  --color-Grey-light-2: #f4f2f2;
+  --color-Grey-light-3: #f0eeee;
+  --color-Grey-light-4: #ccc;
+  --color-Grey-dark-1: #333;
+  --color-Grey-dark-2: #777;
+  --color-Grey-dark-3: #999;
+  --color-white: #fff;
+  --color-black: black;
 
-    --color-Grey-light-1: #faf9f9;
-    --color-Grey-light-2: #f4f2f2;
-    --color-Grey-light-3: #f0eeee;
-    --color-Grey-light-4: #ccc;
-    --color-Grey-dark-1: #333;
-    --color-Grey-dark-2: #777;
-    --color-Grey-dark-3: #999;
-    --color-white: #fff;
-    --color-black: black;
-
-    --primary-font: "Poppins", sans-serif;
-
+  --primary-font: "Poppins", sans-serif;
 }
+
+$color-primary: rgba(115, 178, 250, 1);
 
 $color-white: rgb(255, 255, 255);
 $color-black: rgb(0, 0, 0);

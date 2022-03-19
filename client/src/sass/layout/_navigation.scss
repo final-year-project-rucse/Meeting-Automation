@@ -1,0 +1,20 @@
+.header {
+  &_container {
+    width: 100%;
+    background-color: var(--color-white);
+    display: flex;
+    width: 80%;
+    // background-color: rebeccapurple;
+    margin: auto;
+    justify-content: space-between;
+    // line-height: 0;
+  }
+
+  //   &_item_container {
+  // line-height: 0;
+  &_item_container {
+    list-style: none;
+    display: flex;
+  }
+  //   }
+}
