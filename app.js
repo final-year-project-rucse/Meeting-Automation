@@ -8,6 +8,7 @@ const authRouter = require("./router/user");
 const committeesRouter = require("./router/committes");
 const membersRouter = require("./router/members");
 const minutesRouter = require("./router/minutes");
+const teachersRouter = require("./router/teachers");
 
 const globalErrorHandler = require("./controller/errorController");
 const appError = require("./utils/appError");
@@ -25,6 +26,7 @@ app.use("/api/v1/user", authRouter);
 app.use("/api", committeesRouter);
 app.use("/api",membersRouter);
 app.use("/api",minutesRouter);
+app.use("/api",teachersRouter);
 
 app.all(`*`, (req, res, next) => {
     next(new appError(`Can't find ${req.originalUrl} on this server`, 404));
