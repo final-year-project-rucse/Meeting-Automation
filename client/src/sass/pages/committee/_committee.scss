@@ -1,0 +1,40 @@
+.topbar {
+  position: relative;
+  display: block;
+  float: left;
+  width: 100%;
+  background-color: rgb(168, 164, 168);
+  border-radius: 5px;
+  .text{
+      text-decoration: none;
+     // color: black;
+  }
+  .logo {
+    position: relative;
+    display: block;
+    float: left;
+  }
+  
+  .navigation {
+    position: relative;
+    display: block;
+    float: left;
+  }
+  .president {
+    position: relative;
+    display: block;
+    float: right;
+  }
+  nav ul {
+    position: relative;
+    display: block;
+    float: left;
+    list-style: none;
+  }
+  nav ul li {
+    position: relative;
+    display: block;
+    float: left;
+    margin: 0px 12px;
+  }
+}
