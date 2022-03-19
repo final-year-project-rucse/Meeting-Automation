@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TableRow from "./TableRow";
 const Committee = () => {
-  const [data, setData] = useState({ hits: [] });
+  const [data, setData] = useState({ data: [] });
   const [query, setQuery] = useState("redux");
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(
-        "https://hn.algolia.com/api/v1/search?query=redux"
-      );
+      const result = await axios("http://localhost:8000/api/committees");
 
       setData(result.data);
     };
@@ -18,7 +16,7 @@ const Committee = () => {
   }, []);
 
   return (
-    <div class="container">
+    <div className="container">
       <header className="topbar">
         <div className="logo">
           <a href="#" className="mylogo text">
@@ -50,7 +48,7 @@ const Committee = () => {
         value={query}
         onChange={(event) => setQuery(event.target.value)}
       />
-      <table class="table table-striped">
+      <table className="table table-striped">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -58,8 +56,8 @@ const Committee = () => {
           </tr>
         </thead>
         <tbody>
-          {data.hits.map((item) => (
-            <TableRow item={item} />
+          {data.data.map((item, index) => (
+            <TableRow key={index} item={item} index={index + 1} />
           ))}
         </tbody>
       </table>

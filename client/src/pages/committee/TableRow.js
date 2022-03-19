@@ -1,12 +1,10 @@
-const TableRow = ({ item }) => {
-    
+const TableRow = ({ item, index }) => {
   return (
-    <div>
-      <tr key={item.objectID}>
-        <td>{item.objectID}</td>
-        <td>{item.title}</td>
-      </tr>
-    </div>
+    <tr key={item.objectID}>
+      <td>{index}</td>
+      <td>{item.title}</td>
+      <td>{item.presidentName}</td>
+    </tr>
   );
 };
 
