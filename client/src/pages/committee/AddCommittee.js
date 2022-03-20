@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom"
 
 const options = [
   { value: "teacher1", label: "teacher1" },
@@ -7,6 +8,7 @@ const options = [
 ];
 
 const AddCommittee = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
 
   const [presidentName, setPresidentName] = useState(options[0].value);
@@ -24,6 +26,7 @@ const AddCommittee = () => {
       .post("http://localhost:8000/api/addcommittee", data)
       .then((res) => {
         console.log(res);
+        navigate("/committees")
       })
       .catch((err) => {
         console.log(err);

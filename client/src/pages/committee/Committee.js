@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TableRow from "./TableRow";
+import { useNavigate } from "react-router-dom";
+
 const Committee = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState({ data: [] });
   const [query, setQuery] = useState("redux");
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,20 +30,34 @@ const Committee = () => {
         <nav className="navigation">
           <ul>
             <li>
-              <a href="#" className="text">
+              <a href="/addcommittee" className="text">
                 Create committee
               </a>
             </li>
           </ul>
         </nav>
         <nav className="president">
-          <ul>
-            <li>
-              <a href="" className="text">
-                Admin profile
-              </a>
-            </li>
-          </ul>
+          <button onClick={() => setShow(!show)}>Admin profile</button>
+          {show && (
+            <div className="dropdown-content">
+              <ul>
+                <li>
+                  <a  className="dropdown-content_a" href="/setting">
+                    Setting
+                  </a>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      navigate("/admin");
+                    }}
+                  >
+                    Log out
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
         </nav>
       </header>
 
