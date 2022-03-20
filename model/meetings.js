@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const minutesSchema = new mongoose.Schema({
+const meetingsSchema = new mongoose.Schema({
     title: {
         type: String,
         trim: true,
@@ -41,4 +41,4 @@ const minutesSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 
-module.exports =  minutesSchema ;
+module.exports =  meetingsSchema ;

@@ -1,4 +1,4 @@
-const minutesSchema = require("../model/minutes");
+const meetingSchema = require("../model/meetings");
 const passport = require("passport");
 const mongoose = require("mongoose");
 
@@ -14,7 +14,7 @@ exports.test = (req, res) => {
 exports.getMeetings = (req, res) => {
   const committeeName = req.params.id;
   const meeting = committeeName + "meetings";
-  const Meetings = mongoose.model(meeting, minutesSchema);
+  const Meetings = mongoose.model(meeting, meetingSchema);
   const query = Meetings.find({}).select('title -_id');
   query.exec((err, datas) => {
     if(err){
@@ -32,10 +32,10 @@ exports.addMeeting = async (req, res) => {
   const committeeName = req.params.id;
   const meeting = committeeName + "meetings";
 
-  const Meetings = mongoose.model(meeting, minutesSchema);
+  const Meetings = mongoose.model(meeting, meetingSchema);
   const { title, location, date, time, attendess, agendas } = req.body;
 
-  newMinutesSchema = new Meetings({
+  newMeetingSchema = new Meetings({
     title: title,
     location: location,
     date: date,
@@ -44,7 +44,7 @@ exports.addMeeting = async (req, res) => {
     agendas: agendas,
   });
   try {
-    await newMinutesSchema.save().then((minutes) =>  res.json(minutes));
+    await newMeetingSchema.save().then((minutes) =>  res.json(minutes));
   } catch (err) {
     res.json(err);
   }
