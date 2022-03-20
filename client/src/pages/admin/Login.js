@@ -20,9 +20,11 @@ const Login = () => {
       .post("http://localhost:8000/api/v1/user/signin", data)
       .then((res) => {
         if(res.status == 200){
+          const {token} = res.data.data;
+          document.cookie = `token=${token}`
           navigate("/committees")
         }
-        console.log(res);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
