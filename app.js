@@ -7,7 +7,7 @@ const bodyparser = require("body-parser");
 const authRouter = require("./router/user");
 const committeesRouter = require("./router/committes");
 const membersRouter = require("./router/members");
-const minutesRouter = require("./router/minutes");
+const minutesRouter = require("./router/meeting");
 const teachersRouter = require("./router/teachers");
 
 const globalErrorHandler = require("./controller/errorController");
