@@ -1,4 +1,4 @@
-const membersSchema = require("../model/minutes");
+const minutesSchema = require("../model/minutes");
 const passport = require("passport");
 const mongoose = require("mongoose");
 
@@ -11,37 +11,41 @@ exports.test = (req, res) => {
   });
 };
 
-// exports.getMembers = (req, res) => {
-//   const title = req.params.id;
+exports.getMeetings = (req, res) => {
+  const committeeName = req.params.id;
+  const meeting = committeeName + "meetings";
+  const Meetings = mongoose.model(meeting, minutesSchema);
+  const query = Meetings.find({}).select('title -_id');
+  query.exec((err, datas) => {
+    if(err){
+      return res.json(err);
+    }
+    return res.json({
+      data: datas
+    })
 
-//   const Members = mongoose.model(`${title}`, membersSchema);
-//   Members.find({}, (err, members) => {
-//     if (err)
-//       return res.json({
-//         success: false,
-//       });
-//     return res.json({
-//       success: true,
-//       data: members,
-//     });
-//   });
-// };
+  })
 
-// exports.addMembers = (req, res) => {
-//   const title = req.params.id;
+};
 
-//   const Members = mongoose.model(`${title}`, membersSchema);
-//   var namess = {};
-//   names = req.body.names;
-//   // console.log(namess[0]);
-//   let data = [];
-//   let i;
-//   let insert = 0;
-//   Members.insertMany(names)
-//     .then((names) => {
-//       return res.json(names);
-//     })
-//     .catch((err) => {
-//       return res.json(err);
-//     });
-// }
+exports.addMeeting = async (req, res) => {
+  const committeeName = req.params.id;
+  const meeting = committeeName + "meetings";
+
+  const Meetings = mongoose.model(meeting, minutesSchema);
+  const { title, location, date, time, attendess, agendas } = req.body;
+
+  newMinutesSchema = new Meetings({
+    title: title,
+    location: location,
+    date: date,
+    time: time,
+    attendess: attendess,
+    agendas: agendas,
+  });
+  try {
+    await newMinutesSchema.save().then((minutes) =>  res.json(minutes));
+  } catch (err) {
+    res.json(err);
+  }
+};

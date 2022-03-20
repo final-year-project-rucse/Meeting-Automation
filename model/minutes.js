@@ -11,9 +11,13 @@ const minutesSchema = new mongoose.Schema({
         trim: true,
         
     },
-    time:{
+    date:{
         type: Date,
         default:  Date.now()
+
+    },
+    time:{
+        type: String,
 
     },
     attendess:[
