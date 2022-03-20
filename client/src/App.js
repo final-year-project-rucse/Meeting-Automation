@@ -6,6 +6,7 @@ import Home from "./pages/Home/Home"
 import Login from './pages/admin/Login';
 import Committee from './pages/committee/Committee';
 import AddCommittee from './pages/committee/AddCommittee';
+import Setting from './pages/committee/Setting';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/" element={<Home/>}></Route>
           <Route exact path="/committees" element={<Committee/>}></Route>
           <Route exact path="/addcommittee" element={<AddCommittee/>}></Route>
+          <Route exact path="/setting" element={<Setting/>} ></Route>
           {/* <Route exact path="/register" element={<Register />}></Route>
           <Route exact path="/dashboard" element={<Dashboard/>}></Route> */}
         </Routes>
