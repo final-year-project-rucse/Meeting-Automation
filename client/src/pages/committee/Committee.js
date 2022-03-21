@@ -27,7 +27,7 @@ const Committee = () => {
 
     fetchData();
   }, []);
-
+console.log(data);
   return (
     <div className="container">
       <header className="topbar">

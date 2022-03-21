@@ -1,18 +1,23 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom"
-
-const options = [
-  { value: "teacher1", label: "teacher1" },
-  { value: "teacher2", label: "teacher2" },
-];
-
 const AddCommittee = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
 
-  const [presidentName, setPresidentName] = useState(options[0].value);
-
+  const [options,setOptions] = useState([{name:"select an option"}]);
+  const url = "http://localhost:8000/api/admin/teachers"
+  useEffect (() => {
+    const fetchData = async()=>{
+      const response = await axios.get(url);
+     var arr= [];
+     arr = options.concat(response.data.data)
+     setOptions(arr);
+    }
+  fetchData();
+  }, [])
+  const [presidentName, setPresidentName] = useState("");
+  console.log("op",options);
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -51,10 +56,11 @@ const AddCommittee = () => {
           onChange={(e) => {
             setPresidentName(e.target.value);
           }}
+          
         >
-          {options.map((obj) => (
-            <option key={obj.value} value={obj.value}>
-              {obj.value}{" "}
+          {options.map((obj,key) => (
+            <option key={obj.name} value={obj.name}>
+              {obj.name}{" "}
             </option>
           ))}
         </select>
