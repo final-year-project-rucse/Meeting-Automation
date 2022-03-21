@@ -1,23 +1,23 @@
 import axios from "axios";
-import React, { useState, useEffect} from "react";
-import {useNavigate} from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const AddCommittee = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
 
-  const [options,setOptions] = useState([{name:"select an option"}]);
-  const url = "http://localhost:8000/api/admin/teachers"
-  useEffect (() => {
-    const fetchData = async()=>{
+  const [options, setOptions] = useState([{ name: "select an option" }]);
+  const url = "http://localhost:8000/api/admin/teachers";
+  useEffect(() => {
+    const fetchData = async () => {
       const response = await axios.get(url);
-     var arr= [];
-     arr = options.concat(response.data.data)
-     setOptions(arr);
-    }
-  fetchData();
-  }, [])
+      var arr = [];
+      arr = options.concat(response.data.data);
+      setOptions(arr);
+    };
+    fetchData();
+  }, []);
   const [presidentName, setPresidentName] = useState("");
-  console.log("op",options);
+  console.log("op", options);
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -31,7 +31,7 @@ const AddCommittee = () => {
       .post("http://localhost:8000/api/addcommittee", data)
       .then((res) => {
         console.log(res);
-        navigate("/committees")
+        navigate("/committees");
       })
       .catch((err) => {
         console.log(err);
@@ -56,13 +56,18 @@ const AddCommittee = () => {
           onChange={(e) => {
             setPresidentName(e.target.value);
           }}
-          
         >
-          {options.map((obj,key) => (
-            <option key={obj.name} value={obj.name}>
-              {obj.name}{" "}
-            </option>
-          ))}
+          {options.map((obj, key) =>
+            key == 0 ? (
+              <option key={obj.name} value={obj.name} defaultValue hidden >
+                {obj.name}{" "}
+              </option>
+            ) : (
+              <option key={obj.name} value={obj.name}>
+                {obj.name}{" "}
+              </option>
+            )
+          )}
         </select>
         <br />
         <button>add</button>
