@@ -132,7 +132,7 @@ exports.signIn = catchAsync(async (req, res, next) => {
 
 exports.protected = catchAsync(async (req, res, next) => {
   let token;
-  console.log("ok",req.headers);
+ // console.log("ok",req.headers);
   //console.log(req.headers);
   if (
     req.headers.authorization ||
