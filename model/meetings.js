@@ -36,7 +36,14 @@ const meetingsSchema = new mongoose.Schema({
                 type: String,
             }
         }
-    ]
+    ],
+    resolutions:[
+        {
+            title:{
+                type: String,
+            }
+        }
+    ],
 
 }, { timestamps: true });
 
