@@ -21,7 +21,7 @@ const Login = () => {
       .then((res) => {
         if(res.status == 200){
           const {token} = res.data.data;
-          document.cookie = `token=${token}`
+          localStorage.setItem("token",token);
           navigate("/committees")
         }
         console.log(res.data.data);

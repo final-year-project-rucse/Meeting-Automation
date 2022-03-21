@@ -8,10 +8,19 @@ const Committee = () => {
   const [data, setData] = useState({ data: [] });
   const [query, setQuery] = useState("redux");
   const [show, setShow] = useState(false);
-
+  const token = localStorage.getItem("token");
+  console.log(token);
   useEffect(() => {
+   
     const fetchData = async () => {
-      const result = await axios("http://localhost:8000/api/committees");
+      const result = await axios.get("http://localhost:8000/api/committees",
+      {
+        headers:{
+          
+          authorization: "Bearer " + token
+        }
+      }
+      );
 
       setData(result.data);
     };
@@ -42,13 +51,14 @@ const Committee = () => {
             <div className="dropdown-content">
               <ul>
                 <li>
-                  <a  className="dropdown-content_a" href="/setting">
+                  <a className="dropdown-content_a" href="/setting">
                     Setting
                   </a>
                 </li>
                 <li>
                   <button
                     onClick={() => {
+                      localStorage.setItem("token",null);
                       navigate("/admin");
                     }}
                   >
