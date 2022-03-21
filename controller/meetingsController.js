@@ -66,18 +66,17 @@ exports.getMeetingById = async(req, res) => {
 }
 
 exports.addResolution = async(req, res) => {
+  const objId = req.params.obj;
   const committeeName = req.params.id;
   const meeting = committeeName + "meetings";
-
-  const Meetings = mongoose.model(meeting, meetingSchema);
   const {resolutions} = req.body;
-  const data ={
-    title:"rakib"
-  }
-//   console.log(resolutions);
-//   Meetings.resolutions.push(resolutions);
-//  await Meetings.save().then((data) => {return res => res.json({data: data});});
-
-  return res.json({data: resolutions});
+  const Meetings = mongoose.model(meeting, meetingSchema);
+  Meetings.findById(objId).then((meeting) =>{
+    for(let i = 0 ;i<resolutions.length ;i++){
+       // console.log(resolutions[i]);
+        meeting.resolutions.push(resolutions[i]);
+    }
+   meeting.save().then((response) => res.json({data:response}))
+  }).catch((error) => res.json({error:error}))
 
 }
