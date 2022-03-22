@@ -29,13 +29,8 @@ exports.getMembers = (req, res) => {
 
 exports.addMembers = (req, res) => {
   const title = req.params.id;
-  console.log(req.body);
   const Members = mongoose.model(`${title}`, membersSchema);
   members = req.body.members;
-  // console.log(memberss[0]);
-  let data = [];
-  let i;
-  let insert = 0;
   Members.insertMany(members)
     .then((members) => {
       return res.json(members);
