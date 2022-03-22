@@ -1,0 +1,16 @@
+.head_committee {
+  position: relative;
+  display: inline-block;
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+li {
+  float: left;
+  text-decoration: none;
+  padding: 20px;
+}
+li a {
+    text-decoration: none;
+}
