@@ -3,17 +3,19 @@ import axios from "axios";
 
 const AddMembers = () => {
   const [memberFind, setMemberFind] = useState([]);
+  const [allMembers, setAllMembers] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  
   useEffect(() => {
     const fetchData = async () => {
       let items = [];
       let result = await axios.get("http://localhost:8000/api/admin/teachers");
       console.log(result);
       result.data.data.map((i) => {
-         items.push(i.name);
+        items.push(i.name);
       });
-        setMemberFind(items.sort())
+      
+      setAllMembers(items.sort());
+      setMemberFind(items.sort())
     };
 
     fetchData();
@@ -24,11 +26,11 @@ const AddMembers = () => {
     let arr = [];
     // Match a string LIKE '%abc%'
     var regexObj = new RegExp("^.*" + s + ".*$");
-    memberFind && memberFind.map((item) => {
-      if (regexObj.test(item)) {
-        arr.push(item);
-      }
-    });
+      allMembers.map((item) => {
+        if (regexObj.test(item)) {
+          arr.push(item);
+        }
+      });
     setMemberFind(arr);
   }, [searchValue]);
 
