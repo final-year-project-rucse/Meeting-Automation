@@ -29,17 +29,16 @@ exports.getMembers = (req, res) => {
 
 exports.addMembers = (req, res) => {
   const title = req.params.id;
-
+  console.log(req.body);
   const Members = mongoose.model(`${title}`, membersSchema);
-  var namess = {};
-  names = req.body.names;
-  // console.log(namess[0]);
+  members = req.body.members;
+  // console.log(memberss[0]);
   let data = [];
   let i;
   let insert = 0;
-  Members.insertMany(names)
-    .then((names) => {
-      return res.json(names);
+  Members.insertMany(members)
+    .then((members) => {
+      return res.json(members);
     })
     .catch((err) => {
       return res.json(err);
