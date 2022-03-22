@@ -1,22 +1,33 @@
 import React, { useState, useEffect } from "react";
-
-const items = ["Omar furuk", "Sanjoy kumar", "Sangita Biswas", "Arefin"];
-const members = items.sort();
+import axios from "axios";
 
 const AddMembers = () => {
-  const [memberFind, setMemberFind] = useState(items);
-  console.log({ memberFind });
+  const [memberFind, setMemberFind] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      let items = [];
+      let result = await axios.get("http://localhost:8000/api/admin/teachers");
+      console.log(result);
+      result.data.data.map((i) => {
+         items.push(i.name);
+      });
+        setMemberFind(items.sort())
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     var s = searchValue;
-    let arr=[];
+    let arr = [];
     // Match a string LIKE '%abc%'
     var regexObj = new RegExp("^.*" + s + ".*$");
-    members.map((item) => {
-      if(regexObj.test(item)){
-          arr.push(item);
-      } 
+    memberFind && memberFind.map((item) => {
+      if (regexObj.test(item)) {
+        arr.push(item);
+      }
     });
     setMemberFind(arr);
   }, [searchValue]);
