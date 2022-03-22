@@ -8,6 +8,7 @@ const CommitteeName = () => {
   const params = useParams();
   const [members, setMembers] = useState([]);
   const url = `http://localhost:8000/api/${params.committeeName}`;
+  const addMembers = "/" + params.committeeName + "/addMembers"
   useEffect(() => {
     const fetchData = async() => {
       const response = await axios.get(url);
@@ -23,7 +24,7 @@ const CommitteeName = () => {
           <a href="#">Create Meeting</a>
         </li>
         <li>
-          <a href="#"> Add member</a>
+          <a href={addMembers}> Add member</a>
         </li>
       </ul>
       <table className="table table-striped">
