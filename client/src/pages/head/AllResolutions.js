@@ -9,9 +9,10 @@ const AllResolutions = () => {
     const getAllResolutionHanlder = () => {
         axios
         .get(
-          `/${params.meetingName}/meetings/${params.meetingId}/resolution`)
+          `/${params.meetingName}/meetings/${params.meetingId}/resolutions`)
         .then((res) => {
-          console.log(res.data);
+            setAllResolutions(res.data.data)
+          console.log(res.data.data);
         })
         .catch((err) => {
           console.log(err.response);
