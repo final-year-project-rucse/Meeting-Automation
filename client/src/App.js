@@ -22,8 +22,8 @@ function App() {
           <Route exact path="/addcommittee" element={<AddCommittee/>}></Route>
           <Route exact path="/setting" element={<Setting/>} ></Route>
           <Route exact path="/addmembers" element={<AddMembers/>} ></Route>
-          {/* <Route exact path="/createMeeting" element={<CreateMeeting/>} ></Route> */}
-          <Route exact path="/committeeName" element={<CommitteeName/>} ></Route>
+          <Route exact path="/createMeeting" element={<CreateMeeting/>} ></Route>
+          <Route exact path="/committeeName" element={<CommitteeName/>} ></Route>      
         </Routes>
       </BrowserRouter>
     </div>
