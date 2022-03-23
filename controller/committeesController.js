@@ -55,12 +55,13 @@ exports.addCommittee = async (req, res) => {
     presidentName: req.body.presidentName,
     email: req.body.email,
   });
-  const check = await isAlredyExist();
+  const check = await isAlredyExist(req.body.email);
   if (check == 0) {
     const { email } = req.body;
     const index = email.indexOf("@");
     const userName = email.substring(0, index);
     const password = Math.random().toString(36).slice(-8);
+    console.log("password", password);
     //console.log(userName);
     let entry;
     const data = {
@@ -71,7 +72,6 @@ exports.addCommittee = async (req, res) => {
     };
 
     entry = await headEntry(data);
-
     const mailOptions = {
       to: email,
       subject: "set up this committee",
@@ -87,7 +87,6 @@ exports.addCommittee = async (req, res) => {
         </div>`,
     };
 
-    console.log("entry", entry);
     if (entry) {
       newCommittee
         .save()
@@ -98,18 +97,32 @@ exports.addCommittee = async (req, res) => {
             data: post,
           });
         })
-        .catch((error) => res.json({success: false, error: error}));
+        .catch((error) => res.json({ success: false, error: error }));
     } else {
-      newCommittee
-        .save()
-        .then((post) => {
-          const ok = sendMail(mailOptions);
-          res.json({
-            email: ok,
-            data: post,
-          });
-        })
-        .catch((error) => res.json({success: false, error: error}));
+      res.json({ success: false });
     }
+  } else {
+    const mailOptions = {
+      to: req.body.email,
+      subject: "set up this committee",
+      html: `<div>
+            <div>
+              <h4>Meeting Automation</h4>
+            
+            <div>
+              please go to this <a href="#">link</a> and take neccessary action.
+            </div>
+          </div>`,
+    };
+    newCommittee
+      .save()
+      .then((post) => {
+        const ok = sendMail(mailOptions);
+        res.json({
+          email: ok,
+          data: post,
+        });
+      })
+      .catch((error) => res.json({ success: false, error: error }));
   }
 };

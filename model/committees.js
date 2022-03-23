@@ -14,6 +14,16 @@ const committeesSchema = new mongoose.Schema({
         trim: true,
         required: [true, "president name is required"],
     },
+    email: {
+        type: String,
+        trim: true,
+        required: [true, `Email is required`],
+        validate: [
+          validator.isEmail,
+          "Not an email, please provide correct email",
+        ],
+        unique: true,
+      },
 }, { timestamps: true });
 
 const Committees = mongoose.model("Committees", committeesSchema);

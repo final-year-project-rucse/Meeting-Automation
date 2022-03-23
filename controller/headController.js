@@ -6,6 +6,7 @@ const catchAsync = require("../utils/catchAsync");
 const appError = require("../utils/appError");
 const sendMail = require("../utils/email");
 const { dataValidity, validateEmail } = require("../utils/validity");
+const Committees = require("../model/committees");
 const { promisify } = require("util");
 
 const signToken = (id) => {
@@ -42,6 +43,7 @@ exports.signIn = catchAsync(async (req, res, next) => {
     data: {
       user: head._id,
       token: signToken(head._id),
+      email:email,
     },
     message: `Logged in Successfully!`,
   });
@@ -76,6 +78,19 @@ exports.protected = catchAsync(async (req, res, next) => {
   next();
 });
 
+exports.getCommittees = (req, res) => {
+    const {email} = req.headers;
+    Committees.find({email: email}, (err, committees) => {
+      if (err)
+        return res.json({
+          success: false,
+        });
+      return res.json({
+        success: true,
+        data: committees,
+      });
+    });
+  };
 
 
 
