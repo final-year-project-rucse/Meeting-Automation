@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "../../axios/axios";
 
 const CreateResolution = () => {
   const params = useParams();
+  const navigation = useNavigate();
   console.log(params);
   const [resolutions, setResolutions] = useState([]);
   const inputHandler = (e, index) => {
@@ -36,6 +37,7 @@ const CreateResolution = () => {
         finalObj
       )
       .then((res) => {
+        navigation(`/${params.meetingName}/meetings/${params.meetingId}/resolution`)
         console.log(res.data);
       })
       .catch((err) => {

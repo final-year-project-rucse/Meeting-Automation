@@ -14,13 +14,15 @@ import AllMeeting from "./pages/head/AllMeeting";
 import SpecficMeeting from "./pages/head/SpecficMeeting";
 import CreateResolution from "./pages/head/CreateResolution";
 import AllResolutions from "./pages/head/AllResolutions";
+import HeadLogin from "./pages/head/HeadLogin";
+
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          
+          <Route path="/head/login" element={<HeadLogin />} />
           <Route path='/admin' element={<Login />} />
           <Route path="/:meetingName/meetings/:meetingId/resolution" element={<AllResolutions />} />
           <Route path="/:meetingName/meetings/:meetingId/createResolution" element={<CreateResolution />} />
