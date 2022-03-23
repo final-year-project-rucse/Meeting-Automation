@@ -5,6 +5,7 @@ const cors = require("cors");
 const bodyparser = require("body-parser");
 
 const authRouter = require("./router/user");
+const headRouter = require("./router/head");
 const committeesRouter = require("./router/committes");
 const membersRouter = require("./router/members");
 const minutesRouter = require("./router/meeting");
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use("/api/v1/user", authRouter);
+app.use("/api/v1/head", headRouter);
 app.use("/api", committeesRouter);
 app.use("/api",membersRouter);
 app.use("/api",minutesRouter);
