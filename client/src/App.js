@@ -10,13 +10,22 @@ import Setting from './pages/committee/Setting';
 import AddMembers from "./pages/committee/AddMembers";
 //import CreateMeeting from "./pages/head/CreateMeeting";
 import CommitteeName from "./pages/head/CommitteeName";
+import AllMeeting from "./pages/head/AllMeeting";
+import SpecficMeeting from "./pages/head/SpecficMeeting";
+import CreateResolution from "./pages/head/CreateResolution";
+import AllResolutions from "./pages/head/AllResolutions";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
+          
           <Route path='/admin' element={<Login />} />
+          <Route path="/:meetingName/meetings/:meetingId/resolution" element={<AllResolutions />} />
+          <Route path="/:meetingName/meetings/:meetingId/createResolution" element={<CreateResolution />} />
+          <Route path="/:meetingName/meetings/:meetingId" element={<SpecficMeeting />} />
+          <Route path="/:meetingName/meetings" element={<AllMeeting />} />
           <Route exact path="/" element={<Home/>}></Route>
           <Route exact path="/committees" element={<Committee/>}></Route>
           <Route exact path="/addcommittee" element={<AddCommittee/>}></Route>
