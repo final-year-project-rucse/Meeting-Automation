@@ -8,7 +8,7 @@ import Committee from './pages/committee/Committee';
 import AddCommittee from './pages/committee/AddCommittee';
 import Setting from './pages/committee/Setting';
 import AddMembers from "./pages/committee/AddMembers";
-//import CreateMeeting from "./pages/head/CreateMeeting";
+import CreateMeeting from "./pages/head/CreateMeeting";
 import CommitteeName from "./pages/head/CommitteeName";
 import AllMeeting from "./pages/head/AllMeeting";
 import SpecficMeeting from "./pages/head/SpecficMeeting";
@@ -34,6 +34,8 @@ function App() {
           {/* <Route exact path="/createMeeting" element={<CreateMeeting/>} ></Route> */}
           <Route exact path="/:committeeName" element={<CommitteeName/>} ></Route>
           <Route exact path="/:committeeName/addmembers" element={<AddMembers/>} ></Route>
+          <Route exact path="/createMeeting" element={<CreateMeeting/>} ></Route>
+
         </Routes>
       </BrowserRouter>
     </div>
