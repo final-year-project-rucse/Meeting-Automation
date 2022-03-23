@@ -80,3 +80,15 @@ exports.addResolution = async(req, res) => {
   }).catch((error) => res.json({error:error}))
 
 }
+
+exports.resolutions = async(req, res) => {
+  const objId = req.params.obj;
+  const committeeName = req.params.id;
+  const meeting = committeeName + "meetings";
+  const {resolutions} = req.body;
+  const Meetings = mongoose.model(meeting, meetingSchema);
+  Meetings.findById(objId).then((meeting) =>{
+    res.json({data:meeting.resolutions});
+  }).catch((error) => res.json({error:error}))
+
+}
