@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from '../../axios/axios'
 
-function HeadLogin() {
+function MemberLogin() {
   const [loginCredential, setLoginCredential] = useState({
     email: "",
     password: "",
@@ -43,4 +43,4 @@ function HeadLogin() {
   );
 }
 
-export default HeadLogin;
+export default MemberLogin;

@@ -51,7 +51,7 @@ console.log(data);
             <div className="dropdown-content">
               <ul>
                 <li>
-                  <a className="dropdown-content_a" href="/setting">
+                  <a className="dropdown-content_a" href="/admin/setting">
                     Setting
                   </a>
                 </li>

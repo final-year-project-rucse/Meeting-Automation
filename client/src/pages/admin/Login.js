@@ -63,6 +63,7 @@ const Login = () => {
             <Button title="log in" />
           </div>
         </form>
+        <a href="/"> back</a>
       </div>
     </div>
   );
