@@ -31,9 +31,7 @@ const SpecficMeeting = () => {
     <div style={{ width: "80%", margin: "2rem auto" }}>
       {loading && <p className="text-center">loading...........</p>}
       <div style={{ marginBottom: "30px" }}>
-        <a style={{ paddingRight: "30px" }} href="/addcommittee">
-          members
-        </a>
+        
         <a href="/head/createMeeting">Create Meeting</a>
       </div>
       {flag && (
