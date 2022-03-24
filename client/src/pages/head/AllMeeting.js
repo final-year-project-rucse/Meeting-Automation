@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 
 const AllMeeting = () => {
   const params = useParams();
+  console.log(params)
 
   const [allMeetings, setAllMeetings] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,7 +33,7 @@ const AllMeeting = () => {
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Name</th>
+            <th scope="col">Committee Names</th>
             <th scope="col">Action</th>
           </tr>
         </thead>

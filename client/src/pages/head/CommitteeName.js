@@ -12,6 +12,7 @@ const CommitteeName = () => {
   useEffect(() => {
     const fetchData = async() => {
       const response = await axios.get(url);
+      console.log(response)
       setMembers(response.data.data);
     };
    
@@ -19,19 +20,19 @@ const CommitteeName = () => {
   }, []);
   return (
     <div className="container">
-      <ul className="head_committee">
+      {/* <ul className="head_committee">
         <li>
-          <a href="#">Create Meeting</a>
+          <a href="/head/createMeeting">Create Meeting</a>
         </li>
         <li>
           <a href={addMembers}> Add member</a>
         </li>
-      </ul>
+      </ul> */}
       <table className="table table-striped">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Members</th>
+            <th scope="col">Committee Names</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
