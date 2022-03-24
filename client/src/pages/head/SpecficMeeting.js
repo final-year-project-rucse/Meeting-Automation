@@ -28,31 +28,43 @@ const SpecficMeeting = () => {
   }, []);
 
   return (
-    <div style={{width: "80%", margin: "2rem auto"}}>
-        {loading && <p className="text-center">loading...........</p>}
+    <div style={{ width: "80%", margin: "2rem auto" }}>
+      {loading && <p className="text-center">loading...........</p>}
+      <div style={{ marginBottom: "30px" }}>
+        <a style={{ paddingRight: "30px" }} href="/addcommittee">
+          members
+        </a>
+        <a href="/head/createMeeting">Create Meeting</a>
+      </div>
       {flag && (
-          <>
-        <div>
-          <p>{meetingCredential.title}</p>
-          <p>{meetingCredential.date}</p>
-          <p>{meetingCredential.time}</p>
-          <p>{meetingCredential.location}</p>
-        </div>
-        <div>
+        <>
+          <div>
+            <p>{meetingCredential.title}</p>
+            <p>{meetingCredential.date}</p>
+            <p>{meetingCredential.time}</p>
+            <p>{meetingCredential.location}</p>
+          </div>
+          <div>
             <h3>Agendas : </h3>
-            {meetingCredential.agendas.map(el => <p key={el._id}>{el.text}</p>)}
-        </div>
-        <div>
+            {meetingCredential.agendas.map((el) => (
+              <p key={el._id}>{el.text}</p>
+            ))}
+          </div>
+          <div>
             <h3>Resolutions : </h3>
-            {meetingCredential.resolutions.map(el => <p key={el._id}>{el.title}</p>)}
-        </div>
-        <div>
+            {meetingCredential.resolutions.map((el) => (
+              <p key={el._id}>{el.title}</p>
+            ))}
+          </div>
+          <div>
             <h3>Attendess : </h3>
-            {meetingCredential.attendess.map(el => <div style={{display: "flex"}} key={el._id}>
-                <p style={{marginRight: '2rem'}}>{el.name}</p>
+            {meetingCredential.attendess.map((el) => (
+              <div style={{ display: "flex" }} key={el._id}>
+                <p style={{ marginRight: "2rem" }}>{el.name}</p>
                 <p>{el.email}</p>
-            </div>)}
-        </div>
+              </div>
+            ))}
+          </div>
         </>
       )}
     </div>

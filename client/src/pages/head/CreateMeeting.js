@@ -33,9 +33,7 @@ const CreateMeeting = () => {
       .post("http://localhost:8000/api/title1234455/addMeeting", data)
       .then((res) => {
         if(res.status == 200){
-          // const {token} = res.data.data;
-          // localStorage.setItem("token",token);
-          // navigate("/co")
+         
           console.log(res.statusText);
         }
       })

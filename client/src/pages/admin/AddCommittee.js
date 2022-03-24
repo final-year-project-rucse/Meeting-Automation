@@ -5,7 +5,9 @@ const AddCommittee = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
 
-  const [options, setOptions] = useState([{ name: "select an option" }]);
+  const [options, setOptions] = useState([
+    { name: "select an option", email: "" },
+  ]);
   const url = "http://localhost:8000/api/admin/teachers";
   useEffect(() => {
     const fetchData = async () => {
@@ -16,16 +18,14 @@ const AddCommittee = () => {
     };
     fetchData();
   }, []);
-  const [presidentName, setPresidentName] = useState("");
-  console.log("op", options);
+  const [index, setInput] = useState(0);
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const data = {
       title: title,
-      presidentName: presidentName,
+      presidentName: options[index].name,
+      email: options[index].email,
     };
-    console.log(data);
 
     await axios
       .post("http://localhost:8000/api/addcommittee", data)
@@ -52,18 +52,18 @@ const AddCommittee = () => {
         />
         <br />
         <select
-          value={presidentName}
+          value={index}
           onChange={(e) => {
-            setPresidentName(e.target.value);
+            setInput(e.target.value)
           }}
         >
-          {options.map((obj, key) =>
-            key == 0 ? (
-              <option key={obj.name} value={obj.name} defaultValue hidden >
+          {options.map((obj, index) =>
+            index == 0 ? (
+              <option key={obj.name} value={index} defaultValue hidden>
                 {obj.name}{" "}
               </option>
             ) : (
-              <option key={obj.name} value={obj.name}>
+              <option key={obj.name} value={index}>
                 {obj.name}{" "}
               </option>
             )
