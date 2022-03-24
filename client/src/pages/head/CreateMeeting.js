@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 
 const CreateMeeting = () => {
   const navigate = useNavigate();
+  const params = useParams();
  
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
@@ -17,7 +18,6 @@ const CreateMeeting = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     let data = {
       title: title,
       location: location,
@@ -28,11 +28,12 @@ const CreateMeeting = () => {
       resolutions: []
 
     };
-    console.log(data);
+    // console.log(data);
+    console.log(params.meetingName);
     await axios
-      .post("http://localhost:8000/api/title1234455/addMeeting", data)
+      .post(`http://localhost:8000/api/${params.meetingName}/addMeeting`, data)
       .then((res) => {
-        if(res.status == 200){
+        if(res.status === 200){
          
           console.log(res.statusText);
         }

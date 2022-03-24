@@ -22,8 +22,8 @@ const HeadLogin = () => {
         if (res.status === 200) {
           const { token } = res.data.data;
           localStorage.setItem("headToken", token);
-          localStorage.setItem("headEmail", token);
-            navigate("/headCommitteeNames")
+          localStorage.setItem("headEmail", email);
+            navigate("/headAllCommittees")
           //  navigate("/meetings")
         }
       })
