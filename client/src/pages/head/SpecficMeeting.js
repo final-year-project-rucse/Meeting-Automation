@@ -7,7 +7,10 @@ const SpecficMeeting = () => {
   const [flag, setFlag] = useState(false);
   const [meetingCredential, setMeetingCredential] = useState({});
   const [loading, setLoading] = useState(false);
-
+  const curl = window.location.href;
+  const rurl = curl + "/resolution";
+  const createUrl = curl + "/createResolution"
+  console.log("url",curl);
   const getMeetingHandler = () => {
     setLoading(true);
     axios
@@ -32,7 +35,8 @@ const SpecficMeeting = () => {
       {loading && <p className="text-center">loading...........</p>}
       <div style={{ marginBottom: "30px" }}>
         
-        <a href="/head/createMeeting">Create Meeting</a>
+        <a href={rurl}>resolution</a>{"  "}
+        <a href={createUrl}>add resolutions</a>
       </div>
       {flag && (
         <>
