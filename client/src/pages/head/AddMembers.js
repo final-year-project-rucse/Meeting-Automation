@@ -7,6 +7,7 @@ const AddMembers = () => {
   const [allMembers, setAllMembers] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [selectedMembers, setMembers] = useState([]);
+  const [existingMembersList, setExistingMembersList] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -39,6 +40,26 @@ const AddMembers = () => {
     setMemberFind(arr);
   }, [searchValue]);
 
+  useEffect(() => {
+    const committeeName = params.committeeName;
+    const url = `http://localhost:8000/api/${committeeName}/`;
+    const back = `/${committeeName}`;
+    axios(url)
+      .then(async (res) => {
+        console.log("res", res);
+        const { data } = res.data;
+        let p = [];
+        data.map((item, i) => {
+          p.push(item);
+        });
+        setExistingMembersList(p);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(params);
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const committeeName = params.committeeName;
@@ -49,50 +70,75 @@ const AddMembers = () => {
       .post(url, { members: selectedMembers })
       .then((res) => {
         navigate(back);
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
     console.log(params);
   };
+
   return (
     <div className="container">
-      <form>
-        <input
-          type="text"
-          placeholder="Search..."
-          name="search"
-          value={searchValue}
-          onChange={(e) => {
-            setSearchValue(e.target.value);
-          }}
-        />
-        <br />
-        {memberFind.map((member, key) => {
-          return (
-            <div key={key}>
-              <input
-                type="checkbox"
-                name={member}
-                value={member}
-                onChange={(e) => {
-                  const data = {
-                    name: member.name,
-                    email: member.email,
-                  };
-                  var arr = selectedMembers.concat(data);
-                  setMembers(arr);
-                }}
-              />
-              <span>{member.name}</span>
-            </div>
-          );
-        })}
-        <button type="submit" onClick={handleSubmit}>
-          Submit invitation
-        </button>
-      </form>
+      <div className="row">
+        <div className="col">
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Current members</th>
+                <th scope="col">Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {existingMembersList.map((item, index) => (
+                <tr key={item.objectID}>
+                  <td>{index + 1}</td>
+                  <td>{item.name}</td>
+                  <td>{item.email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="col">
+          <label>All members</label>
+          <form>
+            <input
+              type="text"
+              placeholder="Search..."
+              name="search"
+              value={searchValue}
+              onChange={(e) => {
+                setSearchValue(e.target.value);
+              }}
+            />
+            <br />
+            {memberFind.map((member, key) => {
+              return (
+                <div key={key}>
+                  <input
+                    type="checkbox"
+                    name={member}
+                    value={member}
+                    onChange={(e) => {
+                      const data = {
+                        name: member.name,
+                        email: member.email,
+                      };
+                      var arr = selectedMembers.concat(data);
+                      setMembers(arr);
+                    }}
+                  />
+                  <span>{member.name}</span>
+                </div>
+              );
+            })}
+            <button type="submit" onClick={handleSubmit}>
+              Add members
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
