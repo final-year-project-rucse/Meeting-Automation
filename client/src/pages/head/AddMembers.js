@@ -10,43 +10,13 @@ const AddMembers = () => {
   const [existingMembersList, setExistingMembersList] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      let items = [];
-      let result = await axios.get("http://localhost:8000/api/admin/teachers");
-      console.log(result);
-      result.data.data.map((i) => {
-        items.push(i);
-      });
-
-      setAllMembers(items.sort());
-      setMemberFind(items.sort());
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    var s = searchValue;
-    let arr = [];
-    // Match a string LIKE '%abc%'
-    var regexObj = new RegExp("^.*" + s + ".*$");
-    allMembers.map((item) => {
-      if (regexObj.test(item.name)) {
-        arr.push(item);
-      }
-    });
-    setMemberFind(arr);
-  }, [searchValue]);
-
-  useEffect(() => {
+  useEffect(async() => {
     const committeeName = params.committeeName;
     const url = `http://localhost:8000/api/${committeeName}/`;
     const back = `/${committeeName}`;
-    axios(url)
-      .then(async (res) => {
-        console.log("res", res);
+   await axios(url)
+      .then( (res) => {
+        //console.log("res", res);
         const { data } = res.data;
         let p = [];
         data.map((item, i) => {
@@ -57,8 +27,51 @@ const AddMembers = () => {
       .catch((err) => {
         console.log(err);
       });
-    console.log(params);
-  }, []);
+    //console.log(params);
+  }, [existingMembersList]);
+  useEffect(() => {
+    const fetchData = async () => {
+      let items = [];
+      let result = await axios.get("http://localhost:8000/api/admin/teachers");
+     // console.log(result);
+      result.data.data.map((i) => {
+       let ch = true;
+       //console.log("exist",existingMembersList);
+        for(let j =0;j<existingMembersList.length;j++){
+          //console.log("ok");
+          if(existingMembersList[j].email == i.email){
+              ch = false;
+              break;
+          }
+        }
+        //console.log("ch",ch);
+        if(ch){
+          items.push(i);
+        }
+      });
+
+      setAllMembers(items.sort());
+      setMemberFind(items.sort());
+    };
+
+    fetchData();
+  }, [existingMembersList,selectedMembers]);
+  //console.log("ee",existingMembersList);
+  useEffect(() => {
+    var s = searchValue;
+    let arr = [];
+    // Match a string LIKE '%abc%'
+    var regexObj = new RegExp("^.*" + s + ".*$");
+    allMembers.map((item) => {
+
+      if (regexObj.test(item.name)) {
+        arr.push(item);
+      }
+    });
+    setMemberFind(arr);
+  }, [searchValue]);
+
+ 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -69,12 +82,12 @@ const AddMembers = () => {
     await axios
       .post(url, { members: selectedMembers })
       .then((res) => {
-        navigate(back);
+        //navigate(back);
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log(params);
+    //console.log(params);
   };
 
   return (

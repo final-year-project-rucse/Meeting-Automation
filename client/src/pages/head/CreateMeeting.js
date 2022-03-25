@@ -135,7 +135,7 @@ const CreateMeeting = () => {
                 }
                 {agendas.length-1 == key &&<button onClick={handleOnadd}>add</button>}
                 <br />
-                <p>{JSON.stringify(agendas)}</p>
+                
               </div>
 
             )
