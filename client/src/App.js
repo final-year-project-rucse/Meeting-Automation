@@ -18,6 +18,7 @@ import AllMeeting from "./pages/head/AllMeeting";
 import SpecficMeeting from "./pages/head/SpecficMeeting";
 import CreateResolution from "./pages/head/CreateResolution";
 import AllResolutions from "./pages/head/AllResolutions";
+import CommitteeNames from "./pages/head/CommitteeNames";
 
 
 function App() {
@@ -25,8 +26,6 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Home/>}></Route>
-
           <Route path='/admin' element={<Login />} />
           <Route exact path="/committees" element={<Committee/>}></Route>
           <Route exact path="/addcommittee" element={<AddCommittee/>}></Route>
@@ -34,14 +33,17 @@ function App() {
           
           <Route path="/head/login" element={<HeadLogin />} />
           <Route exact path="/:committeeName/addmembers" element={<AddMembers/>} ></Route>
-          <Route exact path="/:committeeName" element={<CommitteeName/>} ></Route>
-          <Route exact path="/head/createMeeting" element={<CreateMeeting/>} ></Route>
+          <Route exact path="/headAllCommittees" element={<CommitteeNames/>} />
+          {/* <Route exact path="/:committeeName" element={<CommitteeName/>} ></Route> */}
+        
           <Route path="/:meetingName/meetings" element={<AllMeeting />} />
+          <Route exact path="/:meetingName/meetings/createMeeting" element={<CreateMeeting/>} ></Route>
           <Route path="/:meetingName/meetings/:meetingId" element={<SpecficMeeting />} />
           <Route path="/:meetingName/meetings/:meetingId/resolution" element={<AllResolutions />} />
           <Route path="/:meetingName/meetings/:meetingId/createResolution" element={<CreateResolution />} />
 
           <Route path="/member/login" element={<MemberLogin />} />
+          <Route exact path="/" element={<Home/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
