@@ -3,6 +3,7 @@ import axios from "axios";
 import TableRow from "./TableRow";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Navigation from "../../components/navigation/Navigation";
 
 const CommitteeNames = () => {
   const navigate = useNavigate();
@@ -29,37 +30,37 @@ const CommitteeNames = () => {
       });
     // fetchData();
   }, []);
-  console.log(data);
-  return (
-    <div className="container">
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">My committees</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {flag &&
-            data.data.map((el, i) => (
-              <tr key={el._id}>
-                <td>{i}</td>
-                <td>{el.title}</td>
-                <td>
-                  <Link to={`/${el.title}/meetings`}>View</Link>
-                </td>
-              </tr>
-            ))}
-         
 
-          {/* {flag &&
-            data.data.map((item, index) => (
-              <TableRow key={index} item={item} index={index + 1} />
-            ))} */}
-        </tbody>
-      </table>
-    </div>
+  return (
+    <>
+      <div className="box_shadow_small">
+        <Navigation />
+      </div>
+
+      <div className="container">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Serial</th>
+              <th scope="col">My committees</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {flag &&
+              data.data.map((el, i) => (
+                <tr key={el._id}>
+                  <td>{i}</td>
+                  <td>{el.title}</td>
+                  <td>
+                    <Link to={`/${el.title}`}>View</Link>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

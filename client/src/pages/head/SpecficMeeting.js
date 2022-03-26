@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../../axios/axios";
+import Navigation from "../../components/navigation/Navigation";
 
 const SpecficMeeting = () => {
   const params = useParams();
@@ -9,8 +10,18 @@ const SpecficMeeting = () => {
   const [loading, setLoading] = useState(false);
   const curl = window.location.href;
   const rurl = curl + "/resolution";
-  const createUrl = curl + "/createResolution"
-  console.log("url",curl);
+  const createUrl = curl + "/createResolution";
+  const links = [
+    {
+      title: "Resolution",
+      link: `/${params.meetingName}/addmembers`,
+    },
+    {
+      title: "Add Resolutions",
+      link: `/${params.meetingName}/meetings/createMeeting`,
+    },
+  ];
+  console.log("url", curl);
   const getMeetingHandler = () => {
     setLoading(true);
     axios
@@ -31,45 +42,46 @@ const SpecficMeeting = () => {
   }, []);
 
   return (
-    <div style={{ width: "80%", margin: "2rem auto" }}>
-      {loading && <p className="text-center">loading...........</p>}
-      <div style={{ marginBottom: "30px" }}>
-        
-        <a href={rurl}>resolution</a>{"  "}
-        <a href={createUrl}>add resolutions</a>
+    <>
+      <div className="box_shadow_small">
+        <Navigation links={links} isLinkSet={true} />
       </div>
-      {flag && (
-        <>
-          <div>
-            <p>{meetingCredential.title}</p>
-            <p>{meetingCredential.date}</p>
-            <p>{meetingCredential.time}</p>
-            <p>{meetingCredential.location}</p>
-          </div>
-          <div>
-            <h3>Agendas : </h3>
-            {meetingCredential.agendas.map((el) => (
-              <p key={el._id}>{el.text}</p>
-            ))}
-          </div>
-          <div>
-            <h3>Resolutions : </h3>
-            {meetingCredential.resolutions.map((el) => (
-              <p key={el._id}>{el.title}</p>
-            ))}
-          </div>
-          <div>
-            <h3>Attendess : </h3>
-            {meetingCredential.attendess.map((el) => (
-              <div style={{ display: "flex" }} key={el._id}>
-                <p style={{ marginRight: "2rem" }}>{el.name}</p>
-                <p>{el.email}</p>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
+
+      <div style={{ width: "80%", margin: "2rem auto" }}>
+        {loading && <p className="text-center">loading...........</p>}
+        {flag && (
+          <>
+            <div>
+              <p>{meetingCredential.title}</p>
+              <p>{meetingCredential.date}</p>
+              <p>{meetingCredential.time}</p>
+              <p>{meetingCredential.location}</p>
+            </div>
+            <div>
+              <h3>Agendas : </h3>
+              {meetingCredential.agendas.map((el) => (
+                <p key={el._id}>{el.text}</p>
+              ))}
+            </div>
+            <div>
+              <h3>Resolutions : </h3>
+              {meetingCredential.resolutions.map((el) => (
+                <p key={el._id}>{el.title}</p>
+              ))}
+            </div>
+            <div>
+              <h3>Attendess : </h3>
+              {meetingCredential.attendess.map((el) => (
+                <div style={{ display: "flex" }} key={el._id}>
+                  <p style={{ marginRight: "2rem" }}>{el.name}</p>
+                  <p>{el.email}</p>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

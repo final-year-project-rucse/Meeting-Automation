@@ -1,12 +1,29 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios/axios";
 import { useParams, Link } from "react-router-dom";
+import Navigation from "../../components/navigation/Navigation";
+import SubNavigation from "../../components/navigation/SubNavigation";
+import { Routes, Route, Outlet} from "react-router-dom"
+import AddMembers from "./AddMembers";
+import { useDispatch } from 'react-redux'
+import { setAllMeetings} from '../../redux/head/HeadOneCommitteeAllMeeting'
 
 const AllMeeting = () => {
+  const dispatch = useDispatch()
   const params = useParams();
-  console.log(params);
 
-  const [allMeetings, setAllMeetings] = useState([]);
+  const links = [
+    {
+      title: "Members",
+      link: `/${params.meetingName}/addmembers`,
+    },
+    {
+      title: "Create Meeting",
+      link: `/${params.meetingName}/meetings/createMeeting`,
+    },
+  ];
+
+  // const [allMeetings, setAllMeetings] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getMeetingHandler = () => {
@@ -14,9 +31,9 @@ const AllMeeting = () => {
     axios
       .get(`/${params.meetingName}/meetings`)
       .then((res) => {
-        setAllMeetings(res.data.data);
+        dispatch(setAllMeetings(res.data.data))
+        // setAllMeetings(res.data.data);
         setLoading(false);
-        console.log(res.data.data);
       })
       .catch((err) => {
         setLoading(false);
@@ -28,39 +45,40 @@ const AllMeeting = () => {
   }, []);
 
   return (
-    <div style={{ width: "80%", margin: " 2rem auto" }}>
-      <a style={{ paddingRight: "30px" }} href={`/${params.meetingName}/addmembers`}>
-        members
-      </a>
-      <a style={{ paddingLeft: "30px" }} href={`/${params.meetingName}/meetings/createMeeting`}>
-        Create Meeting
-      </a>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Meeting Names</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
+    <>
+      <div className="box_shadow_small">
+        <Navigation links={links} isLinkSet={true} />
+        <SubNavigation links={links} isLinkSet={true} />
+      </div>
 
-        <tbody>
-          {allMeetings.map((el, i) => (
-            <tr key={i}>
-              <th scope="row">{i + 1}</th>
-              <td>{el.title}</td>
-              <td>
-                <Link to={`/${params.meetingName}/meetings/${el._id}`}>
-                  View
-                </Link>
-              </td>
-              <td>Delete</td>
+      <div style={{ width: "80%", margin: " 2rem auto" }}>
+        <Outlet />
+        {/* <table className="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Serial No.</th>
+              <th scope="col">Meeting Names</th>
+              <th scope="col">Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      {loading && <p className="text-center">loading.........</p>}
-    </div>
+          </thead>
+          <tbody>
+            {allMeetings.map((el, i) => (
+              <tr key={i}>
+                <th scope="row">{i + 1}</th>
+                <td>{el.title}</td>
+                <td>
+                  <Link to={`/${params.meetingName}/meetings/${el._id}`}>
+                    View
+                  </Link>
+                </td>
+                <td>Delete</td>
+              </tr>
+            ))}
+          </tbody>
+        </table> */}
+        {/* {loading && <p className="text-center">loading.........</p>} */}
+      </div>
+    </>
   );
 };
 
