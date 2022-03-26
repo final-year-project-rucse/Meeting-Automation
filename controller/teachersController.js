@@ -33,3 +33,13 @@ exports.addTeacher = (req, res) => {
   });
   newteacher.save().then((post) => res.json(post));
 };
+
+exports.delteTeacher = async(req, res) => {
+ const {id} = req.body;
+ try{
+  const response = await Teachers.deleteOne({_id:id});
+  res.status(200).json({ success: true, data: response })
+ }catch(err){
+   res.status(400).json({ success: false, data:err})
+ }
+};

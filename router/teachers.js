@@ -7,6 +7,7 @@ const teachersController = require("../controller/teachersController");
 router.get("/teacher/test", teachersController.test);
 router.get('/admin/teachers',teachersController.getTeachers);
 router.post('/admin/addteacher',teachersController.addTeacher);
+router.delete('/admin/deleteteacher',teachersController.delteTeacher);
 
 
 
