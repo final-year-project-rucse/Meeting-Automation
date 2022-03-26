@@ -126,3 +126,13 @@ exports.addCommittee = async (req, res) => {
       .catch((error) => res.json({ success: false, error: error }));
   }
 };
+
+exports.deleteCommittee = async (req, res) => {
+  const { id } = req.body;
+  try {
+    const response = await Committees.deleteOne({ _id: id });
+    res.status(200).json({ success: true, data: response });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err });
+  }
+};
