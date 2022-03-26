@@ -153,6 +153,20 @@ exports.getMeetingById = async (req, res) => {
   });
 };
 
+exports.deleteMeetingById = async (req, res) => {
+  const { id} = req.body;
+  const committeeName = req.params.id;
+  const meeting = committeeName + "meetings";
+  const Meetings = mongoose.model(meeting, meetingSchema);
+  try{
+    const response = await Meetings.deleteOne({_id:id});
+    res.status(200).json({success:true,data:response})
+  }catch(err){
+    res.status(400).json({success:false,data:err});
+  }
+  
+};
+
 exports.addResolution = async (req, res) => {
   const objId = req.params.obj;
   const committeeName = req.params.id;

@@ -38,4 +38,16 @@ exports.addMembers = (req, res) => {
     .catch((err) => {
       return res.json(err);
     });
-}
+};
+
+exports.deleteMember = async (req, res) => {
+  const { id } = req.body;
+  const title = req.params.id;
+  const Members = mongoose.model(`${title}`, membersSchema);
+  try {
+    const response = await Members.deleteOne({ _id: id });
+    res.status(200).json({ success: true, data: response });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err });
+  }
+};
