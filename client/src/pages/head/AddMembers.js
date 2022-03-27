@@ -10,6 +10,7 @@ const AddMembers = () => {
   const [existingMembersList, setExistingMembersList] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
+  
   useEffect(async() => {
     const committeeName = params.committeeName;
     const url = `http://localhost:8000/api/${committeeName}/`;

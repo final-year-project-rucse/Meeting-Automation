@@ -1,0 +1,27 @@
+.meeting_card{
+    &_container {
+        background-color: var(--color-white);
+        color: var(--color-black);
+        padding: 0;
+        margin: 0;
+        border-radius: 4px;
+        display: inline-block;
+    }
+    &_title_container {
+       padding: 1rem ;
+        p {
+            font-size: 1.7rem;
+        }
+    }
+
+    &_time_date_container {
+        padding: 0rem 1rem 1rem;
+    }
+
+    &_bottom_container {
+        display: flex;
+        justify-content: space-between;
+        padding: .8rem 1rem;
+        border-top: 1px solid var(--color-Grey-light-4)
+    }
+}
