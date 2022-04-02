@@ -3,13 +3,15 @@ import axios from "../../axios/axios";
 import { useParams, Link } from "react-router-dom";
 import Navigation from "../../components/navigation/Navigation";
 import SubNavigation from "../../components/navigation/SubNavigation";
-import { Routes, Route, Outlet} from "react-router-dom"
+import { Routes, Route, Outlet } from "react-router-dom";
 import AddMembers from "./AddMembers";
-import { useDispatch } from 'react-redux'
-import { setAllMeetings} from '../../redux/head/HeadOneCommitteeAllMeeting'
+import { useDispatch, useSelector } from "react-redux";
+import { setAllMeetings } from "../../redux/head/HeadOneCommitteeAllMeeting";
 
 const AllMeeting = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const { allMeetings, createMeetingflag } = useSelector((state) => state.head);
+  const [flag, setFlag] = useState(true);
   const params = useParams();
 
   const links = [
@@ -31,7 +33,7 @@ const AllMeeting = () => {
     axios
       .get(`/${params.meetingName}/meetings`)
       .then((res) => {
-        dispatch(setAllMeetings(res.data.data))
+        dispatch(setAllMeetings(res.data.data));
         // setAllMeetings(res.data.data);
         setLoading(false);
       })
@@ -42,21 +44,20 @@ const AllMeeting = () => {
   };
   useEffect(() => {
     getMeetingHandler();
-  }, []);
+  }, [createMeetingflag]);
 
   return (
     <>
       <div className="box_shadow_medium">
-        <Navigation links={links} isLinkSet={true} />
+        <Navigation links={links} isLinkSet={false} />
         <SubNavigation links={links} isLinkSet={true} />
       </div>
 
-    <div style={{backgroundColor: "rgb(250, 250, 250)", width: "100%"}}>
-    <div style={{ width: "80%", margin: " 0rem auto", padding: "2rem 0", backgroundColor: "rgb(250, 250, 250)" }}>
-        <Outlet />
+      <div style={{ backgroundColor: "rgb(250, 250, 250)", width: "100%" }}>
+        <div className="container-md pt-5">
+          <Outlet loading={loading} />
+        </div>
       </div>
-    </div>
-      
     </>
   );
 };

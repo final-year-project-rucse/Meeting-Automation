@@ -7,7 +7,7 @@ const SubNavigation = (props) => {
 
   return (
     <div className="sec_nav_container border_top_1">
-      <div className="sec_nav_container_div">
+      <div className="container-sm">
         <div>
           <p className="sec_nav_container_title">{params.meetingName}</p>
           <div className="sec_nav_link_container">

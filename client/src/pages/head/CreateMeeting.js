@@ -1,8 +1,13 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { createMeetingflagHandler } from "../../redux/head/HeadOneCommitteeAllMeeting";
 
 const CreateMeeting = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
 
@@ -10,12 +15,14 @@ const CreateMeeting = () => {
   const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [attendess, setAttendess] = useState([]);
-  const [agendas, setAgendas] = useState([{ text: "title test" }]);
+  const [agendas, setAgendas] = useState([{ text: "" }]);
   const [resolutions, setResolutions] = useState([]);
 
   const handleSubmit = async (event) => {
+    setLoading(true);
     event.preventDefault();
     let data = {
       title: title,
@@ -26,19 +33,20 @@ const CreateMeeting = () => {
       resolutions: [],
     };
 
-    // console.log(data);
-    console.log(params.meetingName);
     await axios
       .post(`http://localhost:8000/api/${params.meetingName}/addMeeting`, data)
       .then((res) => {
+        dispatch(createMeetingflagHandler());
         console.log(data);
         if (res.status === 200) {
           navigate(`/${params.meetingName}`);
         }
+        setLoading(false);
       })
       .catch((err) => {
         console.log("=============");
-        console.log(err);
+        console.log(err.response);
+        setLoading(false);
       });
   };
   const handleChange = (e, key) => {
@@ -59,85 +67,125 @@ const CreateMeeting = () => {
     setAgendas(list);
   };
   return (
-    <div className="container">
-      <div className="create_meeting_container">
-      <br />
-      <br />
-      <form onSubmit={handleSubmit}>
-        <label>Title:</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-          placeholder="title"
-        />
-        <br />
-        <br />
-        <label>Location:</label>
-        <input
-          type="text"
-          id="location"
-          value={location}
-          onChange={(e) => {
-            setLocation(e.target.value);
-          }}
-          placeholder="location"
-        />
-        <br />
-        <br />
-        <label>Date:</label>
-        <input
-          type="date"
-          id="date"
-          value={date}
-          onChange={(e) => {
-            setDate(e.target.value);
-          }}
-          placeholder="date"
-        />
-        <br />
-        <br />
-        <label>Time:</label>
-        <input
-          type="time"
-          id="time"
-          value={time}
-          onChange={(e) => {
-            setTime(e.target.value);
-          }}
-          placeholder="time"
-        />
-        <br />
-        <br />
-        <label>Agendas:</label>
-        {agendas.map((agenda, key) => {
-          return (
-            <div key={key}>
-              <label>Tilte:</label>
-              <input
-                type="text"
-                name="text"
-                value={agenda.text}
-                placeholder="Enter title"
-                onChange={(e) => handleChange(e, key)}
-              />
-              {agendas.length > 1 && (
-                <button onClick={(e) => handleOnremove(e, key)}>remove</button>
-              )}
-              {agendas.length - 1 === key && (
-                <button onClick={handleOnadd}>add</button>
-              )}
-              <br />
+    <div className="container-md">
+      <div className="create_meeting_container pb-4">
+        <p className="h2 text-center pt-5">Create New Meeting</p>
+        <div className="container-lg">
+          <form onSubmit={handleSubmit}>
+            <div className="row row-cols-1 row-cols-md-2">
+              <div className="col mt-3">
+                <label className="form-label">Meeting Title</label>
+                <input
+                  type="text"
+                  id="title"
+                  value={title}
+                  required
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                  }}
+                  placeholder="Meeting Title"
+                  className="form-control"
+                />
+              </div>
+              <div className="col mt-3">
+                <label className="form-label">Meeting Location</label>
+                <input
+                  type="text"
+                  id="location"
+                  value={location}
+                  required
+                  onChange={(e) => {
+                    setLocation(e.target.value);
+                  }}
+                  placeholder="Meeting Location"
+                  className="form-control"
+                />
+              </div>
+              <div className="col mt-3">
+                <label className="form-label">Meeting Date</label>
+                <input
+                  type="date"
+                  id="date"
+                  value={date}
+                  required
+                  onChange={(e) => {
+                    setDate(e.target.value);
+                  }}
+                  placeholder="Meeting Title"
+                  className="form-control"
+                />
+              </div>
+              <div className="col mt-3">
+                <label className="form-label">Meeting Time</label>
+                <input
+                  type="time"
+                  id="time"
+                  value={time}
+                  required
+                  onChange={(e) => {
+                    setTime(e.target.value);
+                  }}
+                  placeholder="Meeting Title"
+                  className="form-control"
+                />
+              </div>
             </div>
-          );
-        })}
-        <br />
-        <br />
-        <button>add</button>
-      </form>
+
+            <p className="h4 text-center pt-5">Agendas</p>
+            {agendas.map((agenda, key) => {
+              return (
+                <div key={key}>
+                  <div className="row align-items-end ">
+                    <div className="col mt-3">
+                      <label className="form-label">Agenda : {key + 1}</label>
+                      <textarea
+                        className="form-control"
+                        rows="3"
+                        type="text"
+                        name="text"
+                        value={agenda.text}
+                        placeholder="Write Agendas"
+                        onChange={(e) => handleChange(e, key)}
+                      ></textarea>
+                    </div>
+                    <div className="col-auto">
+                      {agendas.length > 1 && (
+                        <button
+                          className="btn btn-danger me-3 btn-sm"
+                          onClick={(e) => handleOnremove(e, key)}
+                        >
+                          <FontAwesomeIcon icon={faTrashCan} />
+                        </button>
+                      )}
+                      {agendas.length - 1 === key && (
+                        <button
+                          className="btn btn-primary btn-sm"
+                          onClick={handleOnadd}
+                        >
+                          <FontAwesomeIcon icon={faPlus} />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <br />
+            <div className="clearfix">
+              <button className="btn btn-primary float-end">
+                {loading && (
+                  <div
+                    className="spinner-border spinner-border-sm me-2"
+                    role="status"
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                )}
+                <span>Create</span>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
