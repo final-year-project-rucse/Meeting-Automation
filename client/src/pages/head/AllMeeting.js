@@ -46,38 +46,17 @@ const AllMeeting = () => {
 
   return (
     <>
-      <div className="box_shadow_small">
+      <div className="box_shadow_medium">
         <Navigation links={links} isLinkSet={true} />
         <SubNavigation links={links} isLinkSet={true} />
       </div>
 
-      <div style={{ width: "80%", margin: " 2rem auto" }}>
+    <div style={{backgroundColor: "rgb(250, 250, 250)", width: "100%"}}>
+    <div style={{ width: "80%", margin: " 0rem auto", padding: "2rem 0", backgroundColor: "rgb(250, 250, 250)" }}>
         <Outlet />
-        {/* <table className="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Serial No.</th>
-              <th scope="col">Meeting Names</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allMeetings.map((el, i) => (
-              <tr key={i}>
-                <th scope="row">{i + 1}</th>
-                <td>{el.title}</td>
-                <td>
-                  <Link to={`/${params.meetingName}/meetings/${el._id}`}>
-                    View
-                  </Link>
-                </td>
-                <td>Delete</td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
-        {/* {loading && <p className="text-center">loading.........</p>} */}
       </div>
+    </div>
+      
     </>
   );
 };

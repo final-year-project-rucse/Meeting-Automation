@@ -15,7 +15,6 @@ const CreateMeeting = () => {
   const [agendas, setAgendas] = useState([{ text: "title test" }]);
   const [resolutions, setResolutions] = useState([]);
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     let data = {
@@ -24,10 +23,9 @@ const CreateMeeting = () => {
       date: date,
       time: time,
       agendas: agendas,
-      resolutions: []
-
+      resolutions: [],
     };
-  
+
     // console.log(data);
     console.log(params.meetingName);
     await axios
@@ -35,8 +33,7 @@ const CreateMeeting = () => {
       .then((res) => {
         console.log(data);
         if (res.status === 200) {
-
-          navigate(`/${params.meetingName}/meetings`);
+          navigate(`/${params.meetingName}`);
         }
       })
       .catch((err) => {
@@ -44,25 +41,26 @@ const CreateMeeting = () => {
         console.log(err);
       });
   };
-  const handleChange = (e,key) =>{
-    const {name,value} = e.target;
+  const handleChange = (e, key) => {
+    const { name, value } = e.target;
     //console.log(value);
     const list = [...agendas];
     list[key][name] = value;
     setAgendas(list);
-  }
-  const handleOnadd = (e) =>{
+  };
+  const handleOnadd = (e) => {
     e.preventDefault();
-    setAgendas([...agendas,{text:""}])
-  }
-  const handleOnremove = (e,index) =>{
+    setAgendas([...agendas, { text: "" }]);
+  };
+  const handleOnremove = (e, index) => {
     e.preventDefault();
-   const list = [...agendas];
-    list.splice(index,1);
+    const list = [...agendas];
+    list.splice(index, 1);
     setAgendas(list);
-  }
+  };
   return (
     <div className="container">
+      <div className="create_meeting_container">
       <br />
       <br />
       <form onSubmit={handleSubmit}>
@@ -115,36 +113,32 @@ const CreateMeeting = () => {
         <br />
         <br />
         <label>Agendas:</label>
-        {
-          agendas.map((agenda, key) => {
-            return (
-              <div key={key}>
-                <label>Tilte:</label>
-                <input
-                  type="text" 
-                  name="text" 
-                  value={agenda.text} 
-                  placeholder="Enter title"
-                  onChange={ (e)=> handleChange(e,key)}
-                  
-                />
-                {
-                  agendas.length >1 &&
-                  
-                  <button onClick={(e) => handleOnremove(e,key)}>remove</button> 
-                }
-                {agendas.length-1 == key &&<button onClick={handleOnadd}>add</button>}
-                <br />
-                
-              </div>
-
-            )
-          })
-        }
+        {agendas.map((agenda, key) => {
+          return (
+            <div key={key}>
+              <label>Tilte:</label>
+              <input
+                type="text"
+                name="text"
+                value={agenda.text}
+                placeholder="Enter title"
+                onChange={(e) => handleChange(e, key)}
+              />
+              {agendas.length > 1 && (
+                <button onClick={(e) => handleOnremove(e, key)}>remove</button>
+              )}
+              {agendas.length - 1 === key && (
+                <button onClick={handleOnadd}>add</button>
+              )}
+              <br />
+            </div>
+          );
+        })}
         <br />
         <br />
         <button>add</button>
       </form>
+      </div>
     </div>
   );
 };
