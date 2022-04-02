@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = (props) => {
   return (
@@ -18,12 +20,9 @@ const Navigation = (props) => {
               ))}
             </div>
           )}
-
-          <div className="nav_container_head_div">
-            <p className="nav_container_head_name">
-              {localStorage.getItem("headEmail")}
-            </p>
-          </div>
+          <button className="btn btn-outline-warning btn-sm">
+            <FontAwesomeIcon className="px-2" icon={faArrowRightFromBracket} />
+          </button>
         </div>
       </div>
     </div>

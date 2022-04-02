@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   allMeetings: [],
+  createMeetingflag: true,
 };
 
 export const HeadOneCommitteeAllMeeting = createSlice({
@@ -9,14 +10,21 @@ export const HeadOneCommitteeAllMeeting = createSlice({
   initialState,
   reducers: {
     setAllMeetings: (state, action) => {
-        return {
-            ...state,
-            allMeetings: action.payload
-        }
+      return {
+        ...state,
+        allMeetings: action.payload,
+      };
+    },
+    createMeetingflagHandler: (state, action) => {
+      return {
+        ...state,
+        createMeetingflag: ![state.createMeetingflag],
+      };
     },
   },
 });
 
-export const { setAllMeetings } = HeadOneCommitteeAllMeeting.actions;
+export const { setAllMeetings, createMeetingflagHandler } =
+  HeadOneCommitteeAllMeeting.actions;
 
 export default HeadOneCommitteeAllMeeting.reducer;

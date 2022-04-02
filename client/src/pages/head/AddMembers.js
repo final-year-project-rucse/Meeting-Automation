@@ -8,15 +8,17 @@ const AddMembers = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedMembers, setMembers] = useState([]);
   const [existingMembersList, setExistingMembersList] = useState([]);
+  const [loading, setLoading] = useState(false);
   const params = useParams();
-  const navigate = useNavigate();
-  
-  useEffect(async() => {
+  // const navigate = useNavigate();
+  console.log("Called");
+  // console.log(params);
+  useEffect(() => {
     const committeeName = params.committeeName;
     const url = `http://localhost:8000/api/${committeeName}/`;
     const back = `/${committeeName}`;
-   await axios(url)
-      .then( (res) => {
+    axios(url)
+      .then((res) => {
         //console.log("res", res);
         const { data } = res.data;
         let p = [];
@@ -34,19 +36,17 @@ const AddMembers = () => {
     const fetchData = async () => {
       let items = [];
       let result = await axios.get("http://localhost:8000/api/admin/teachers");
-     // console.log(result);
+      // console.log(result);
       result.data.data.map((i) => {
-       let ch = true;
-       //console.log("exist",existingMembersList);
-        for(let j =0;j<existingMembersList.length;j++){
-          //console.log("ok");
-          if(existingMembersList[j].email == i.email){
-              ch = false;
-              break;
+        let ch = true;
+        //console.log("exist",existingMembersList);
+        for (let j = 0; j < existingMembersList.length; j++) {
+          if (existingMembersList[j].email === i.email) {
+            ch = false;
+            break;
           }
         }
-        //console.log("ch",ch);
-        if(ch){
+        if (ch) {
           items.push(i);
         }
       });
@@ -56,15 +56,14 @@ const AddMembers = () => {
     };
 
     fetchData();
-  }, [existingMembersList,selectedMembers]);
-  //console.log("ee",existingMembersList);
+  }, [existingMembersList, selectedMembers]);
+
   useEffect(() => {
     var s = searchValue;
     let arr = [];
     // Match a string LIKE '%abc%'
     var regexObj = new RegExp("^.*" + s + ".*$");
     allMembers.map((item) => {
-
       if (regexObj.test(item.name)) {
         arr.push(item);
       }
@@ -72,23 +71,39 @@ const AddMembers = () => {
     setMemberFind(arr);
   }, [searchValue]);
 
- 
-
   const handleSubmit = async (event) => {
+    setLoading(true);
     event.preventDefault();
     const committeeName = params.committeeName;
     const url = `http://localhost:8000/api/${committeeName}/addMembers`;
     const back = `/${committeeName}`;
-    console.log(selectedMembers);
     await axios
       .post(url, { members: selectedMembers })
       .then((res) => {
+        setLoading(false);
         //navigate(back);
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
       });
     //console.log(params);
+  };
+
+  ////// FOR DELETE A MEETING MEMBER
+  const deleteMemberHandler = (id) => {
+    console.log(id);
+    axios
+      .delete(
+        `http://localhost:8000/api/${params.committeeName}/deleteMember`,
+        { id }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
 
   return (
@@ -98,28 +113,40 @@ const AddMembers = () => {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th scope="col">No</th>
-                <th scope="col">Current members</th>
+                <th className="ps-3" scope="col">
+                  No
+                </th>
+                <th scope="col">Member Name</th>
                 <th scope="col">Email</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               {existingMembersList.map((item, index) => (
-                <tr key={item.objectID}>
-                  <td>{index + 1}</td>
+                <tr key={item._id}>
+                  <td className="ps-3">{index + 1}</td>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => deleteMemberHandler(item._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <div className="col">
-          <label>All members</label>
+        <div className="col-auto">
+          <p className="h4">All members</p>
           <form>
             <input
+              className="form-control"
               type="text"
-              placeholder="Search..."
+              placeholder="Search Member"
               name="search"
               value={searchValue}
               onChange={(e) => {
@@ -127,28 +154,39 @@ const AddMembers = () => {
               }}
             />
             <br />
-            {memberFind.map((member, key) => {
-              return (
-                <div key={key}>
-                  <input
-                    type="checkbox"
-                    name={member}
-                    value={member}
-                    onChange={(e) => {
-                      const data = {
-                        name: member.name,
-                        email: member.email,
-                      };
-                      var arr = selectedMembers.concat(data);
-                      setMembers(arr);
-                    }}
-                  />
-                  <span>{member.name}</span>
+            {memberFind.map((member, key) => (
+              <div className="form-check mb-2" key={key}>
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  name={member}
+                  value={member}
+                  onChange={(e) => {
+                    const data = {
+                      name: member.name,
+                      email: member.email,
+                    };
+                    var arr = selectedMembers.concat(data);
+                    setMembers(arr);
+                  }}
+                />
+                <label className="form-check-label">{member.name}</label>
+              </div>
+            ))}
+            <button
+              className="btn btn-primary  mt-3"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              {loading && (
+                <div
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                >
+                  <span className="visually-hidden">Loading...</span>
                 </div>
-              );
-            })}
-            <button type="submit" onClick={handleSubmit}>
-              Add members
+              )}
+              Add Members
             </button>
           </form>
         </div>
