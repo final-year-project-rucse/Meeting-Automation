@@ -4,12 +4,19 @@ import axios from "axios";
 const DeleteMember = ({ id, meetingName }) => {
   const deleteMemberHandler = () => {
     // console.log("------------------")
-    // console.log(meetingName)
-    // console.log(id)
+    console.log(meetingName)
+    console.log(id)
     axios
       .delete(
         `http://localhost:8000/api/${meetingName}/deleteMember`,
-        { id }
+        {
+          headers: {
+            Authorization: ''
+          },
+          data: {
+            id:id
+          }
+        }
       )
       .then((res) => {
         console.log(res.data);
