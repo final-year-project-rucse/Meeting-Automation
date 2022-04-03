@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import DeleteMember from "./DeleteMember";
 
 const AddMembers = () => {
   const [memberFind, setMemberFind] = useState([]);
@@ -8,6 +9,7 @@ const AddMembers = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedMembers, setMembers] = useState([]);
   const [existingMembersList, setExistingMembersList] = useState([]);
+  const [meetingName, setMeetingName] = useState("");
   const [loading, setLoading] = useState(false);
   const params = useParams();
   // const navigate = useNavigate();
@@ -15,6 +17,8 @@ const AddMembers = () => {
   // console.log(params);
   useEffect(() => {
     const committeeName = params.committeeName;
+    const meetingNamePass = params.meetingName;
+    setMeetingName(meetingNamePass);
     const url = `http://localhost:8000/api/${committeeName}/`;
     const back = `/${committeeName}`;
     axios(url)
@@ -31,7 +35,7 @@ const AddMembers = () => {
         console.log(err);
       });
     //console.log(params);
-  }, [existingMembersList]);
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       let items = [];
@@ -90,21 +94,7 @@ const AddMembers = () => {
     //console.log(params);
   };
 
-  ////// FOR DELETE A MEETING MEMBER
-  const deleteMemberHandler = (id) => {
-    console.log(id);
-    axios
-      .delete(
-        `http://localhost:8000/api/${params.committeeName}/deleteMember`,
-        { id }
-      )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  };
+
 
   return (
     <div className="container">
@@ -128,12 +118,7 @@ const AddMembers = () => {
                   <td>{item.name}</td>
                   <td>{item.email}</td>
                   <td>
-                    <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => deleteMemberHandler(item._id)}
-                    >
-                      Delete
-                    </button>
+                    <DeleteMember id={item._id} meetingName={meetingName}/>
                   </td>
                 </tr>
               ))}
