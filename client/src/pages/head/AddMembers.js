@@ -13,17 +13,16 @@ const AddMembers = () => {
   const [loading, setLoading] = useState(false);
   const params = useParams();
   // const navigate = useNavigate();
-  console.log("Called");
-  // console.log(params);
+  
   useEffect(() => {
     const committeeName = params.committeeName;
     const meetingNamePass = params.meetingName;
     setMeetingName(meetingNamePass);
-    const url = `http://localhost:8000/api/${committeeName}/`;
+    const url = `http://localhost:8000/api/${meetingNamePass}/`;
     const back = `/${committeeName}`;
     axios(url)
       .then((res) => {
-        //console.log("res", res);
+       // console.log("res", res);
         const { data } = res.data;
         let p = [];
         data.map((item, i) => {
@@ -35,7 +34,7 @@ const AddMembers = () => {
         console.log(err);
       });
     //console.log(params);
-  }, []);
+  }, [existingMembersList]);
   useEffect(() => {
     const fetchData = async () => {
       let items = [];
