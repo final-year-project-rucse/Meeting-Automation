@@ -56,7 +56,7 @@ exports.addMeeting = async (req, res) => {
   const { title, location, date, time, agendas, resolutions } = req.body;
   let text = "";
   let i = 0;
- 
+
   // console.log(resolutions);
   let attendess = [];
   let receivers = "";
@@ -154,17 +154,16 @@ exports.getMeetingById = async (req, res) => {
 };
 
 exports.deleteMeetingById = async (req, res) => {
-  const { id} = req.body;
+  const { id } = req.body;
   const committeeName = req.params.id;
   const meeting = committeeName + "meetings";
   const Meetings = mongoose.model(meeting, meetingSchema);
-  try{
-    const response = await Meetings.deleteOne({_id:id});
-    res.status(200).json({success:true,data:response})
-  }catch(err){
-    res.status(400).json({success:false,data:err});
+  try {
+    const response = await Meetings.deleteOne({ _id: id });
+    res.status(200).json({ success: true, data: response });
+  } catch (err) {
+    res.status(400).json({ success: false, data: err });
   }
-  
 };
 
 exports.addResolution = async (req, res) => {
@@ -172,9 +171,11 @@ exports.addResolution = async (req, res) => {
   const committeeName = req.params.id;
   const meeting = committeeName + "meetings";
   const { resolutions } = req.body;
+  console.log(resolutions);
   const Meetings = mongoose.model(meeting, meetingSchema);
   Meetings.findById(objId)
     .then((meeting) => {
+      console.log(meeting);
       for (let i = 0; i < resolutions.length; i++) {
         // console.log(resolutions[i]);
         meeting.resolutions.push(resolutions[i]);

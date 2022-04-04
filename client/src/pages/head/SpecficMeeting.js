@@ -9,19 +9,19 @@ const SpecficMeeting = () => {
   const [meetingCredential, setMeetingCredential] = useState({});
   const [loading, setLoading] = useState(false);
   const curl = window.location.href;
-  const rurl = curl + "/resolution";
-  const createUrl = curl + "/createResolution";
+  // const rurl = curl + "/resolution";
+  // const createUrl = curl + "/createResolution";
   const links = [
     {
       title: "Resolution",
-      link: `/${params.meetingName}/addmembers`,
+      link: `/${params.meetingName}/meetings/${params.meetingId}/resolution`,
     },
     {
       title: "Add Resolutions",
-      link: `/${params.meetingName}/meetings/createMeeting`,
+      link: `/${params.meetingName}/meetings/${params.meetingId}/createResolution`,
     },
   ];
-  console.log("url", curl);
+  // console.log("url", curl);
   const getMeetingHandler = () => {
     setLoading(true);
     axios
@@ -53,19 +53,29 @@ const SpecficMeeting = () => {
           <div className="container">
             <div>
               <h3>{meetingCredential.title}</h3>
-              <p><strong>Locations: </strong>{meetingCredential.location}</p>
-              <span><strong>Time and date: </strong>{meetingCredential.time}{" "}{meetingCredential.date.slice(0, 10)}</span>
+              <p>
+                <strong>Locations: </strong>
+                {meetingCredential.location}
+              </p>
+              <span>
+                <strong>Time and date: </strong>
+                {meetingCredential.time} {meetingCredential.date.slice(0, 10)}
+              </span>
             </div>
             <hr />
             <div>
               <h3>Agendas : </h3>
               <table class="table table-striped">
-                <thead>
-                </thead>
+                <thead></thead>
                 <tbody>
                   {meetingCredential.agendas.map((el, id) => (
                     <tr>
-                      <td key={el._id}> {id + 1}{". "}{el.text}</td>
+                      <td key={el._id}>
+                        {" "}
+                        {id + 1}
+                        {". "}
+                        {el.text}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -74,12 +84,17 @@ const SpecficMeeting = () => {
             <div>
               <h3>Resolutions : </h3>
               <table class="table table-striped">
-                <thead>
-                </thead>
+                <thead></thead>
                 <tbody>
                   {meetingCredential.resolutions.map((el, id) => (
                     <tr>
-                      <td key={el._id}><strong>{id + 1}{". "}</strong>{el.title}</td>
+                      <td key={el._id}>
+                        <strong>
+                          {id + 1}
+                          {". "}
+                        </strong>
+                        {el.title}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
