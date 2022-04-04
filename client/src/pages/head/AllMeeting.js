@@ -33,7 +33,7 @@ const AllMeeting = () => {
     axios
       .get(`/${params.meetingName}/meetings`)
       .then((res) => {
-        dispatch(setAllMeetings(res.data.data));
+        dispatch(setAllMeetings(res.data.data.reverse()));
         // setAllMeetings(res.data.data);
         setLoading(false);
       })
