@@ -21,6 +21,8 @@ const CreateMeeting = () => {
   const [agendas, setAgendas] = useState([{ text: "" }]);
   const [resolutions, setResolutions] = useState([]);
 
+  console.log(time);
+
   const handleSubmit = async (event) => {
     setLoading(true);
     event.preventDefault();

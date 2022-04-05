@@ -8,9 +8,7 @@ const SpecficMeeting = () => {
   const [flag, setFlag] = useState(false);
   const [meetingCredential, setMeetingCredential] = useState({});
   const [loading, setLoading] = useState(false);
-  const curl = window.location.href;
-  // const rurl = curl + "/resolution";
-  // const createUrl = curl + "/createResolution";
+
   const links = [
     {
       title: "Resolution",
@@ -21,7 +19,7 @@ const SpecficMeeting = () => {
       link: `/${params.meetingName}/meetings/${params.meetingId}/createResolution`,
     },
   ];
-  // console.log("url", curl);
+
   const getMeetingHandler = () => {
     setLoading(true);
     axios
@@ -81,7 +79,7 @@ const SpecficMeeting = () => {
                 </tbody>
               </table>
             </div>
-            <div>
+            {/* <div>
               <h3>Resolutions : </h3>
               <table class="table table-striped">
                 <thead></thead>
@@ -99,7 +97,7 @@ const SpecficMeeting = () => {
                   ))}
                 </tbody>
               </table>
-            </div>
+            </div> */}
             <div>
               <h3>Attendess : </h3>
               <table class="table table-striped">

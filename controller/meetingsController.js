@@ -33,13 +33,13 @@ exports.getMeetings = async (req, res) => {
   const meeting = committeeName + "meetings";
   const Meetings = mongoose.model(meeting, meetingSchema);
   //const query = Meetings.find({}).select('title -_id');
-  const query = Meetings.find({}).select("title");
+  const query = Meetings.find({}).select("title time date location");
   query.exec((err, datas) => {
     if (err) {
       return res.json(err);
     }
     return res.json({
-      data: datas,
+      data: datas.reverse(),
     });
   });
 };

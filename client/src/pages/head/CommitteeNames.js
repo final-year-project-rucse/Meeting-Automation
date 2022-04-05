@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import TableRow from "./TableRow";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Navigation from "../../components/navigation/Navigation";
+import { setAllMeetings } from "../../redux/head/HeadOneCommitteeAllMeeting";
 
 const CommitteeNames = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [flag, setFlag] = useState(false);
   const [data, setData] = useState({ data: [] });
@@ -26,6 +28,7 @@ const CommitteeNames = () => {
         setLoading(false);
         setData({ data: res.data.data });
         setFlag(true);
+        dispatch(setAllMeetings([]));
       })
       .catch((err) => {
         setLoading(false);
@@ -56,7 +59,7 @@ const CommitteeNames = () => {
             <thead>
               <tr>
                 <th scope="col ps-3">Serial No.</th>
-                <th scope="col">My committees</th>
+                <th scope="col">My Committees</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
