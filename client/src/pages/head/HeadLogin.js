@@ -69,9 +69,9 @@ const HeadLogin = () => {
                 }}
               />
             </div>
-            <Link className="login_forgot_password" to="forgotpassword">
+            {/* <Link className="login_forgot_password" to="forgotpassword">
               Forgot Password ?
-            </Link>
+            </Link> */}
             <div className="login_btn_container">
               <Button title="log in" />
             </div>

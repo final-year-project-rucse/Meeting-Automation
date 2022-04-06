@@ -31,16 +31,13 @@ function App(props) {
         <Route exact path="/admin/setting" element={<Setting />}></Route>
 
         <Route path="/head/login" element={<HeadLogin />} />
-        {/* <Route exact path="/:committeeName/addmembers" element={<AddMembers/>} ></Route> */}
         <Route exact path="/headAllCommittees" element={<CommitteeNames />} />
-        {/* <Route exact path="/:committeeName" element={<CommitteeName/>} ></Route> */}
 
         <Route path="/:meetingName" element={<AllMeeting {...props} />}>
           <Route exact path="" element={<Test {...props} />} />
           <Route path="addmembers" element={<AddMembers />} />
           <Route path="meetings/createMeeting" element={<CreateMeeting />} />
         </Route>
-        {/* <Route exact path="/:meetingName/meetings/createMeeting" element={<CreateMeeting />} ></Route> */}
         <Route
           path="/:meetingName/meetings/:meetingId"
           element={<SpecficMeeting />}

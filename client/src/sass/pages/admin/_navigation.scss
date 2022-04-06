@@ -1,0 +1,26 @@
+.admin_navigation_container {
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    // height: 3rem;
+}
+
+.admin_content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin_logo_content{
+    display: flex;
+    align-items: center;
+    align-items: center;
+}
+
+.admin_create_committe{
+    transition: all .2s ease-out;
+    border-bottom: 4px solid transparent;
+    &:hover {
+        cursor: pointer;
+        border-bottom: 4px solid crimson;
+    }
+}

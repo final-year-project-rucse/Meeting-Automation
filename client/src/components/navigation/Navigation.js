@@ -1,9 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = (props) => {
+  const navigate = useNavigate();
+  const logoutHandler = () => {
+    localStorage.removeItem("headEmail");
+    localStorage.removeItem("headToken");
+    navigate("/head/login");
+  };
   return (
     <div className="nav_container">
       <div className="nav_container_div">
@@ -20,7 +27,10 @@ const Navigation = (props) => {
               ))}
             </div>
           )}
-          <button className="btn btn-outline-warning btn-sm">
+          <button
+            onClick={logoutHandler}
+            className="btn btn-outline-warning btn-sm"
+          >
             <FontAwesomeIcon className="px-2" icon={faArrowRightFromBracket} />
           </button>
         </div>

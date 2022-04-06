@@ -18,12 +18,11 @@ const Login = () => {
     await axios
       .post("http://localhost:8000/api/v1/user/signin", data)
       .then((res) => {
-        if(res.status == 200){
-          const {token} = res.data.data;
-          localStorage.setItem("token",token);
-          navigate("/committees")
+        if (res.status === 200) {
+          const { token } = res.data.data;
+          localStorage.setItem("token", token);
+          navigate("/committees");
         }
-        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -35,7 +34,20 @@ const Login = () => {
       <div className="login_container">
         <p className="login_title">Meeting Automation</p>
         <form onSubmit={handleSubmit}>
-          <input
+          <div className="input_container">
+            <label>E-Mail</label>
+            <input
+              type="text"
+              id="email"
+              value={email}
+              placeholder="E-Mail"
+              name="email"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+          </div>
+          {/* <input
             type="text"
             id="email"
             value={email}
@@ -44,8 +56,21 @@ const Login = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-          />
-          <input
+          /> */}
+          <div className="input_container">
+            <label>Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              placeholder="Password"
+              name="password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
+          {/* <input
             type="password"
             id="password"
             value={password}
@@ -54,11 +79,11 @@ const Login = () => {
             onChange={(e)=>{
               setPassword(e.target.value)
             }}
-          />
-          <br/>
-          <Link className="login_forgot_password" to="forgotpassword">
+          /> */}
+          {/* <br /> */}
+          {/* <Link className="login_forgot_password" to="forgotpassword">
             Forgot Password ?
-          </Link>
+          </Link> */}
           <div className="login_btn_container">
             <Button title="log in" />
           </div>
