@@ -11,5 +11,6 @@ router.get("/:id/meetings/:obj",meetingsController.getMeetingById);
 router.post("/:id/meetings/:obj/addResolution",meetingsController.addResolution);
 router.get("/:id/meetings/:obj/resolutions",meetingsController.resolutions);
 router.delete("/:id/deleteMeeting",meetingsController.deleteMeetingById);
+router.post("/:id/query",meetingsController.query);
 
 module.exports = router;

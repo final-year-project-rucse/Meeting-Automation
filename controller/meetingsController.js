@@ -197,3 +197,59 @@ exports.resolutions = async (req, res) => {
     })
     .catch((error) => res.json({ error: error }));
 };
+
+exports.query = async (req, res) => {
+  const objId = req.params.obj;
+  const committeeName = req.params.id;
+  const meeting = committeeName + "meetings";
+  const { resolutions } = req.body;
+  const Meetings = mongoose.model(meeting, meetingSchema);
+  const { data } = req.body;
+  //console.log(data);
+  let regex = new RegExp(data, "i");
+  // const filterd = await Model.find({ $and: [ { $or: [{title: regex },{description: regex}] }, {category: value.category}, {city:value.city} ] })
+  // console.log(regex);
+  // const response = await Meetings.find({$and: [{$or:[{title: regex},{agendas:regex}]}]})
+  try {
+    const meetings = await Meetings.find({});
+    //console.log(meetings.length);
+    let result = [];
+    const patterns = data.split(" ");
+    //console.log(patterns);
+    let regexA = [];
+    for (let i = 0; i < patterns.length; i++) {
+      let ob;
+      ob = patterns[i];
+      //console.log(ob);
+      let reg = new RegExp(ob, "i");
+      regexA.push(new RegExp(ob,"i"))
+    }
+    //console.log(regexA);
+    for (let i = 0; i < meetings.length; i++) {
+      let resolution = meetings[i].resolutions;
+      let j;
+      for (j = 0; j < resolution.length; j++) {
+        let title = "";
+        title = resolution[j].title;
+        let elips = "RAKIBBEPULEBRAHIM";
+        let index = title.indexOf(elips) + elips.length;
+        let test;
+        title = title.substr(index);
+        meetings[i].resolutions[j] = title;
+        for (let k = 0; k <regexA.length; k++) {
+          //console.log(title);
+          test = title.match(regexA[k]);
+          //console.log(test);
+          if (test != null) {
+            result.push(title);
+            break;
+          }
+        }
+        //if (test != null) break;
+      }
+    }
+    res.json({ data: result });
+  } catch (err) {
+    res.json(err);
+  }
+};
