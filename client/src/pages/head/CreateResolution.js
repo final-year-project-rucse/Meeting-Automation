@@ -4,6 +4,9 @@ import axios from "../../axios/axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
 const CreateResolution = () => {
   const params = useParams();
   const navigation = useNavigate();
@@ -82,6 +85,16 @@ const CreateResolution = () => {
     console.log(resolution);
   };
 
+  const getRichTextInput = (e, editor, index, i) => {
+    const copyAgendas = [...agendas];
+    const singleAGenda = copyAgendas[index];
+    const copyResolution = [...singleAGenda.resolution];
+    let temp = copyResolution[i];
+    temp.title = editor.getData();
+    copyResolution[i] = temp;
+    setAgendas(copyAgendas);
+  };
+
   const inputHandler = (e, index, i) => {
     const copyAgendas = [...agendas];
     const singleAGenda = copyAgendas[index];
@@ -143,19 +156,22 @@ const CreateResolution = () => {
                       <label className="form-label">
                         Resolution : {deepi + 1}
                       </label>
-                      <textarea
-                        className="form-control"
-                        rows="3"
-                        type="text"
-                        name="text"
-                        value={item.text}
-                        placeholder={`Resolution for ${
-                          el.text.length > 30
-                            ? `${el.text.substring(0, 29)}....`
-                            : el.text
-                        }`}
-                        onChange={(e) => inputHandler(e, i, deepi)}
-                      ></textarea>
+                      <CKEditor
+                        // className="form-control"
+                        // rows="3"
+                        // type="text"
+                        // name="text"
+                        // value={item.text}
+                        editor={ClassicEditor}
+                        // placeholder={`Resolution for ${
+                        //   el.text.length > 30
+                        //     ? `${el.text.substring(0, 29)}....`
+                        //     : el.text
+                        // }`}
+                        onChange={(e, editor) =>
+                          getRichTextInput(e, editor, i, deepi)
+                        }
+                      />
                     </div>
                     <div className="col-auto ">
                       <button className="btn btn-danger me-3  btn-sm">
