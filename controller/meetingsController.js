@@ -84,13 +84,25 @@ exports.addMeeting = async (req, res) => {
     agendas: agendas,
     resolutions: resolutions,
   });
+  var slides = [];
+  for(let i = 0;i<agendas.length;i++){
+    slides.push(agendas[i].text);
+  }
+  var str = "<ul>";
+
+  slides.forEach(function (slide) {
+    str += "<li>" + slide + "</li>";
+  });
+
+  str += "</ul>";
+  //document.getElementById("slideContainer").innerHTML = str;
   try {
     const mailOptions = {
       to: receivers,
       subject: "invitation",
       html: `<div>
           <div>
-            <h4> a Meeting</h4>
+            <h4>you are invited in this meeting.Please attend in time</h4>
           </div>
           <div>
             <p>
@@ -112,15 +124,8 @@ exports.addMeeting = async (req, res) => {
               <strong>Time :</strong>${time}
             </p>
           </div>
-          <div>
-            <p>
-              <strong>Location :</strong>${location}
-            </p>
-          </div>
-          <div>
-            ${text}
-          </div>
-          <div></div>
+         
+          <div >${str}</div>
           <div>
             please go to this <a href="#">link</a> and take neccessary action.
           </div>
@@ -222,7 +227,7 @@ exports.query = async (req, res) => {
       ob = patterns[i];
       //console.log(ob);
       let reg = new RegExp(ob, "i");
-      regexA.push(new RegExp(ob,"i"))
+      regexA.push(new RegExp(ob, "i"));
     }
     //console.log(regexA);
     for (let i = 0; i < meetings.length; i++) {
@@ -236,7 +241,7 @@ exports.query = async (req, res) => {
         let test;
         title = title.substr(index);
         meetings[i].resolutions[j] = title;
-        for (let k = 0; k <regexA.length; k++) {
+        for (let k = 0; k < regexA.length; k++) {
           //console.log(title);
           test = title.match(regexA[k]);
           //console.log(test);
