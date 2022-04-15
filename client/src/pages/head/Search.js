@@ -7,20 +7,22 @@ const Search = () => {
   const params = useParams();
   console.log(params.meetingName);
   const [searchInput, setSearchInput] = useState("");
-  const [resolution, setResolution] = React.useState("");
+  const [resolution, setResolution] = useState([]);
 
   const searchHandler = (e) => {
     e.preventDefault();
     axios
       .post(`/${params.meetingName}/query`, { data: searchInput })
       .then((res) => {
-          console.log(res.data);
+          setResolution(res.data.data);
+        //   console.log(res.data.data);
       })
       .catch((err) => {
           console.log(err.response);
       });
   };
   return (
+      <>
     <div class="container">
       <div class="row height d-flex justify-content-center align-items-center">
         <div class="col-md-8">
@@ -40,6 +42,10 @@ const Search = () => {
         </div>
       </div>
     </div>
+    <div class="container">
+        {resolution.map((res) => <p className="mt-3">{res}</p> )}
+    </div>
+    </>
   );
 };
 
