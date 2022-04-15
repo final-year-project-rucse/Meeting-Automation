@@ -23,6 +23,10 @@ const AllMeeting = () => {
       title: "Create Meeting",
       link: `/${params.meetingName}/meetings/createMeeting`,
     },
+    {
+      title: "Search",
+      link: `/${params.meetingName}/search`,
+    },
   ];
 
   // const [allMeetings, setAllMeetings] = useState([]);
