@@ -3,7 +3,7 @@ import axios from "../../axios/axios";
 import { useParams, Link } from "react-router-dom";
 // import ReactHtmlParser from "react-html-parser";
 import parse from "html-react-parser";
-
+import jsPDF from 'jspdf'
 const resolutionMap = new Map();
 
 const AllResolutions = () => {

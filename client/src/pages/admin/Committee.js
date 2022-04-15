@@ -80,6 +80,23 @@ const Committee = () => {
     fetchData();
   }, []);
 
+  const deleteCommitteeHandler = (id) => {
+    axios
+      .delete(`http://localhost:8000/api/deleteCommittee`, { 
+        headers:{},
+        data:{id}
+       })
+      .then((res) => {
+        console.log(res.data);
+        fetchData()
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+
+    console.log(id)
+  };
+
   return (
     <>
       <>
@@ -168,48 +185,7 @@ const Committee = () => {
         </div>
       </div>
       <div className="container">
-        <header className="topbar">
-          {/* <div className="logo">
-            <a href="/committees" className="mylogo text">
-              Logo
-            </a>
-          </div> */}
-          {/* <nav className="navigation">
-            <ul>
-              <li onClick={handleShow}>Create committee</li>
-            </ul>
-          </nav>
-          <nav className="president">
-            <button onClick={() => setShow(!show)}>Admin profile</button>
-            {show && (
-              <div className="dropdown-content">
-                <ul>
-                  <li>
-                    <a className="dropdown-content_a" href="/admin/setting">
-                      Setting
-                    </a>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => {
-                        localStorage.setItem("token", null);
-                        navigate("/admin");
-                      }}
-                    >
-                      Log out
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </nav> */}
-        </header>
-
-        {/* <input
-          type="text"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        /> */}
+        <header className="topbar"></header>
         {committeeLoading ? (
           <div className="d-flex justify-content-center">
             <div
@@ -227,11 +203,17 @@ const Committee = () => {
                 <th scope="col">Committee No.</th>
                 <th scope="col">Committees</th>
                 <th scope="col">Head Name</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               {data.data.map((item, index) => (
-                <TableRow key={index} item={item} index={index + 1} />
+                <TableRow
+                  key={index}
+                  item={item}
+                  index={index + 1}
+                  deleteCommitteeHandler={deleteCommitteeHandler}
+                />
               ))}
             </tbody>
           </table>
