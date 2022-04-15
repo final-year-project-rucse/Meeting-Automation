@@ -20,6 +20,7 @@ import CreateResolution from "./pages/head/CreateResolution";
 import AllResolutions from "./pages/head/AllResolutions";
 import CommitteeNames from "./pages/head/CommitteeNames";
 import Test from "./pages/head/Test";
+import Search from "./pages/head/Search";
 
 function App(props) {
   return (
@@ -37,6 +38,7 @@ function App(props) {
           <Route exact path="" element={<Test {...props} />} />
           <Route path="addmembers" element={<AddMembers />} />
           <Route path="meetings/createMeeting" element={<CreateMeeting />} />
+          <Route path="search" element={<Search />} />
         </Route>
         <Route
           path="/:meetingName/meetings/:meetingId"

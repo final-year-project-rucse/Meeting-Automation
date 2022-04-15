@@ -2,16 +2,16 @@
 const Home = () => {
   return (
     <div className="home_container">
-      <div class="card text-center ">
-        <div class="card-header">
+      <div className="card text-center ">
+        <div className="card-header">
           <h3>Meeting Automation</h3>
         </div>
-        <div class="card-body">
-          <a href="/admin" class="btn btn-primary">Sign in as admin</a>
+        <div className="card-body">
+          <a href="/admin" className="btn btn-primary">Sign in as admin</a>
           <p>or</p>
-          <a href="/head/login" class="btn btn-primary"> Sign in as head</a>
+          <a href="/head/login" className="btn btn-primary"> Sign in as head</a>
           <p>or</p>
-          <a href="/member/login" class="btn btn-primary"> Sign in as member</a>
+          <a href="/member/login" className="btn btn-primary"> Sign in as member</a>
         </div>
       </div>
     </div>

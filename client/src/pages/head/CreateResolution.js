@@ -157,17 +157,7 @@ const CreateResolution = () => {
                         Resolution : {deepi + 1}
                       </label>
                       <CKEditor
-                        // className="form-control"
-                        // rows="3"
-                        // type="text"
-                        // name="text"
-                        // value={item.text}
                         editor={ClassicEditor}
-                        // placeholder={`Resolution for ${
-                        //   el.text.length > 30
-                        //     ? `${el.text.substring(0, 29)}....`
-                        //     : el.text
-                        // }`}
                         onChange={(e, editor) =>
                           getRichTextInput(e, editor, i, deepi)
                         }

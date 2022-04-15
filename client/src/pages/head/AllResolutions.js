@@ -3,7 +3,7 @@ import axios from "../../axios/axios";
 import { useParams, Link } from "react-router-dom";
 // import ReactHtmlParser from "react-html-parser";
 import parse from "html-react-parser";
-
+import jsPDF from 'jspdf'
 const resolutionMap = new Map();
 
 const AllResolutions = () => {
@@ -64,11 +64,30 @@ const AllResolutions = () => {
       });
   }, []);
 
+  const generatePdfHandler =() => {
+    console.log(allResolutions)
+    const doc = new jsPDF();
+    // doc.setFont('SolaimanLipi');
+    doc.setFontSize(10); // set font size 10
+  // doc.text('মাইক্রোসফট আফিস ট্রেনিং গাইড', 10, 10)
+    let position = 10;
+    for(let i = 0;i<allResolutions.length;i++) {
+      doc.setFontSize(10)
+      doc.text(`${allResolutions[i].agenda}`, 10, position);
+      for(let j=0;j<allResolutions[i].resolution.length;j++) {
+        doc.text(`${allResolutions[i].resolution[j]}`, 10, position+=10);
+      }
+    }
+    
+    doc.save("a4.pdf");
+  }
+
   // useEffect(() => [getAllResolutionHanlder()], []);
   return (
     <div className="container-md m-5">
       <div>
         <h4 className="h2 text-center">Resolution</h4>
+        <button onClick={generatePdfHandler}>Generate Pdf</button>
         {loading ? (
           <div
             class="d-flex justify-content-center"
