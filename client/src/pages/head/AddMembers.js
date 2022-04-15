@@ -59,7 +59,7 @@ const AddMembers = () => {
     };
 
     fetchData();
-  }, [existingMembersList, selectedMembers]);
+  }, [existingMembersList]);
 
   useEffect(() => {
     var s = searchValue;
@@ -77,7 +77,7 @@ const AddMembers = () => {
   const handleSubmit = async (event) => {
     setLoading(true);
     event.preventDefault();
-    const committeeName = params.committeeName;
+    const committeeName = params.meetingName;
     const url = `http://localhost:8000/api/${committeeName}/addMembers`;
     const back = `/${committeeName}`;
     await axios
