@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios/axios";
 import { useParams, Link } from "react-router-dom";
-import {jsPDF} from 'jspdf'
-// import 'assets/fonts/SolaimanLipi-normal.js';
+// import ReactHtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 
 const resolutionMap = new Map();
 
@@ -118,9 +118,7 @@ const AllResolutions = () => {
                         <div className="col-auto">
                           <span className="h6 ">Resolution: </span>
                         </div>
-                        <div className="col">
-                          <p>{reso}</p>
-                        </div>
+                        <div className="col">{parse(reso)}</div>
                       </div>
                     </div>
                   ))}

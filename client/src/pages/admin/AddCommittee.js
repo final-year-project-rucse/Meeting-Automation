@@ -58,7 +58,7 @@ const AddCommittee = () => {
           }}
         >
           {options.map((obj, index) =>
-            index == 0 ? (
+            index === 0 ? (
               <option key={obj.name} value={index} defaultValue hidden>
                 {obj.name}{" "}
               </option>
