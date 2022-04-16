@@ -74,7 +74,7 @@ exports.addMeeting = async (req, res) => {
       }
     }
   }
-  console.log(attendess);
+  //console.log(attendess);
   newMeetingSchema = new Meetings({
     title: title,
     location: location,
@@ -85,7 +85,7 @@ exports.addMeeting = async (req, res) => {
     resolutions: resolutions,
   });
   var slides = [];
-  for(let i = 0;i<agendas.length;i++){
+  for (let i = 0; i < agendas.length; i++) {
     slides.push(agendas[i].text);
   }
   var str = "<ul>";
@@ -124,14 +124,14 @@ exports.addMeeting = async (req, res) => {
               <strong>Time :</strong>${time}
             </p>
           </div>
-         
+         <div><strong>Agendas:</strong></div>
           <div >${str}</div>
           <div>
             please go to this <a href="#">link</a> and take neccessary action.
           </div>
         </div>`,
     };
-    console.log(receivers);
+    //console.log(receivers);
     await newMeetingSchema.save().then((minutes) => {
       const mail = sendMail(mailOptions);
       res.json({
@@ -178,14 +178,59 @@ exports.addResolution = async (req, res) => {
   const { resolutions } = req.body;
   console.log(resolutions);
   const Meetings = mongoose.model(meeting, meetingSchema);
+  const all = await getMembers(committeeName);
+  let attendess = [];
+  let receivers = "";
+  if (all.length > 0) {
+    for (let i = 0; i < all.length; i++) {
+      const data = {
+        name: all[i].name,
+        email: all[i].email,
+      };
+      attendess.push(data);
+      if (i < all.length - 1) {
+        receivers = receivers + all[i].email + ",";
+      } else {
+        receivers = receivers + all[i].email;
+      }
+    }
+  }
   Meetings.findById(objId)
     .then((meeting) => {
       console.log(meeting);
+      var str = "<ul>";
       for (let i = 0; i < resolutions.length; i++) {
         // console.log(resolutions[i]);
         meeting.resolutions.push(resolutions[i]);
+        let elips = "RAKIBBEPULEBRAHIM";
+        let r = resolutions[i].title;
+        let index = r.indexOf(elips) + elips.length +1;
+        let test;
+        title = r.substr(index);
+        str += "<li>" + title + "</li>";
       }
-      meeting.save().then((response) => res.json({ data: response }));
+      str += "</ul>";
+      const mailOptions = {
+        to: receivers,
+        subject: "invitation",
+        html: `<div>
+            
+            <div>
+              <p>
+                <strong>Title :</strong>${meeting.title}
+              </p>
+            </div>
+           <div><strong>Resolutions:</strong></div>
+            <div >${str}</div>
+            <div>
+              please go to this <a href="#">link</a> and take neccessary action.
+            </div>
+          </div>`,
+      };
+      meeting.save().then((response) => {
+        const mail = sendMail(mailOptions);
+        res.json({ data: response });
+      });
     })
     .catch((error) => res.json({ error: error }));
 };

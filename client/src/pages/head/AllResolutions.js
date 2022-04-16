@@ -87,7 +87,7 @@ const AllResolutions = () => {
     <div className="container-md m-5">
       <div>
         <h4 className="h2 text-center">Resolution</h4>
-        <button onClick={generatePdfHandler}>Generate Pdf</button>
+        {/* <button onClick={generatePdfHandler}>Generate Pdf</button> */}
         {loading ? (
           <div
             class="d-flex justify-content-center"

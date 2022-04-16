@@ -21,11 +21,13 @@ import AllResolutions from "./pages/head/AllResolutions";
 import CommitteeNames from "./pages/head/CommitteeNames";
 import Test from "./pages/head/Test";
 import Search from "./pages/head/Search";
+import DemoHome from "./pages/Home/DemoHome";
 
 function App(props) {
   return (
     <div>
       <Routes>
+        <Route path="/demo-home" element={<DemoHome />} />
         <Route path="/admin" element={<Login />} />
         <Route exact path="/committees" element={<Committee />}></Route>
         <Route exact path="/addcommittee" element={<AddCommittee />}></Route>
@@ -54,7 +56,7 @@ function App(props) {
         />
 
         <Route path="/member/login" element={<MemberLogin />} />
-        <Route exact path="/" element={<Home />}></Route>
+        <Route exact path="/" element={<DemoHome />}></Route>
       </Routes>
       {/* </BrowserRouter> */}
     </div>

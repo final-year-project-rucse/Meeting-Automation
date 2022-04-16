@@ -28,6 +28,7 @@ const SpecficMeeting = () => {
         setMeetingCredential(res.data.data[0]);
         setFlag(true);
         setLoading(false);
+        console.log(res.data)
       })
       .catch((err) => {
         setLoading(false);
