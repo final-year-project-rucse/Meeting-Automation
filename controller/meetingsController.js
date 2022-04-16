@@ -282,9 +282,10 @@ exports.query = async (req, res) => {
         let title = "";
         title = resolution[j].title;
         let elips = "RAKIBBEPULEBRAHIM";
-        let index = title.indexOf(elips) + elips.length;
+        let index = title.indexOf(elips) + elips.length + 4;
         let test;
         title = title.substr(index);
+        title = title.substr(0,title.length-4);
         meetings[i].resolutions[j] = title;
         for (let k = 0; k < regexA.length; k++) {
           //console.log(title);
