@@ -124,7 +124,7 @@ exports.addMeeting = async (req, res) => {
               <strong>Time :</strong>${time}
             </p>
           </div>
-         
+         <div><strong>Agendas:</strong></div>
           <div >${str}</div>
           <div>
             please go to this <a href="#">link</a> and take neccessary action.

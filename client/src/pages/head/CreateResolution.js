@@ -163,11 +163,11 @@ const CreateResolution = () => {
                         }
                       />
                     </div>
-                    <div className="col-auto ">
+                    {/* <div className="col-auto ">
                       <button className="btn btn-danger me-3  btn-sm">
                         <FontAwesomeIcon icon={faTrashCan} />
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ))}
